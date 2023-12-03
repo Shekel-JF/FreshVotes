@@ -40,14 +40,13 @@ public class WebSecurityConfig
             http.csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/index", "/").permitAll()
+                .anyRequest().hasRole("USER")
                 .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .permitAll()
+                    .loginPage("/login").permitAll()
                     .and()
                 .logout()
-                    .logoutUrl("/logout")
-                    .permitAll()
+                    .logoutUrl("/logout").permitAll()
                 .and().build();
     }
 }
