@@ -37,13 +37,14 @@ public class WebSecurityConfig
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
         return
-            http.csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/index", "/").permitAll()
+            http.authorizeHttpRequests()
+                .requestMatchers("/").permitAll()
                 .anyRequest().hasRole("USER")
                 .and()
                 .formLogin()
-                    .loginPage("/login").permitAll()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/dashboard")
+                    .permitAll()
                     .and()
                 .logout()
                     .logoutUrl("/logout").permitAll()
