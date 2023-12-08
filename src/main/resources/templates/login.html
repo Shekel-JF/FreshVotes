@@ -2,6 +2,16 @@
 <html xmlns:th="http://thymeLeaf.org">
     <head>
         <title>FreshVotes login</title>
+        <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+        <script type ="text/javascript">
+            $(function()
+            {
+                $("#createAccount").click(function()
+                {
+                    window.location.href = "/register";
+                });
+            });       
+        </script>
     </head>
     <body>
         <form action="" method="post">
@@ -20,8 +30,8 @@
                     You have been logged out.
                 </div>
                 <p>
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username"/>
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username"/>
                 </p>
                 <p>
                     <label for="password">Password</label>
@@ -29,6 +39,7 @@
                 </p>
                 <div>
                     <button type="submit" class="btn">Log in</button>
+                    <button type="button" class="btn" id="createAccount">Create Account</button>
                 </div>
             </fieldset>
         </form>

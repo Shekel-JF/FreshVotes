@@ -1,11 +1,9 @@
 package com.freshvotes.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
@@ -21,9 +19,6 @@ import com.freshvotes.service.UserDetailsServiceImpl;
 @EnableWebSecurity(debug = true)
 public class WebSecurityConfig
 {
-    @Autowired
-    private UserDetailsService userDetailsService;
-
     @Bean
     public UserDetailsService userDetailsService()
     {
@@ -40,18 +35,16 @@ public class WebSecurityConfig
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
         return
-            http.authorizeHttpRequests()
-                .requestMatchers("/").permitAll()
-                .anyRequest().hasRole("USER")
-                .and()
-                .formLogin()
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/dashboard")
-                    .permitAll()
-                    .and()
-                .logout()
-                    .logoutUrl("/logout").permitAll()
-                .and().build();
+                http.authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/register").permitAll()
+                        .anyRequest().hasRole("USER"))
+                        .formLogin(login -> login
+                                .loginPage("/login")
+                                .defaultSuccessUrl("/dashboard")
+                                .permitAll())
+                        .logout(logout -> logout
+                                .logoutUrl("/logout").permitAll()).build();
     }
 
         @Bean
