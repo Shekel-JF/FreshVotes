@@ -1,4 +1,4 @@
-package com.freshvotes.freshvotes;
+package com.freshvotes;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
