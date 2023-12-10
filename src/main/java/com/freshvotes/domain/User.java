@@ -70,6 +70,17 @@ public class User
     {
         this.authorities = authorities;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", username='" + getUsername() + "'" +
+            ", password='" + getPassword() + "'" +
+            ", name='" + getName() + "'" +
+            ", authorities='" + getAuthorities() + "'" +
+            "}";
+    }
     
 
 }
