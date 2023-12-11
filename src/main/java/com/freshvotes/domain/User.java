@@ -6,6 +6,7 @@ import java.util.Set;
 import com.freshvotes.security.Authority;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -34,6 +35,7 @@ public class User
         this.id = id;
     }
 
+    @Column(unique=true)
     public String getUsername()
     {
         return username;
