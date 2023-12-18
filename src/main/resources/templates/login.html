@@ -36,7 +36,7 @@
                                     Reason: <span th:text="${SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
                                 </div>
                             </div>
-                            <div th:if="${param.logout != null}">
+                            <div th:if="${param.logout != null}" class="alert alert-info col-md-9 mx-auto" role="alert">
                                 You have been logged out.
                             </div>
         
@@ -54,8 +54,8 @@
                                 </div>
                             </div>
                             
-                            <button type="submit" class="btn btn-outline-info">Log in</button>
-                            <button type="button" class="btn btn-outline-info" id="createAccount">Create Account</button>
+                            <button type="submit" class="btn btn-outline-info" style="--bs-btn-padding-y: .3rem; --bs-btn-padding-x: 2.56rem; --bs-btn-font-size: 1.0rem;">Log in</button>
+                            <button type="button" class="btn btn-outline-info" style="--bs-btn-padding-y: .3rem; --bs-btn-padding-x: .6rem; --bs-btn-font-size: 1.0rem;" id="createAccount">Create Account</button>
     
                         </fieldset>
                     </form>
