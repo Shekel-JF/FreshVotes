@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Feature
@@ -12,7 +13,8 @@ public class Feature
     private String title;
     private String description;
     private String status;
-    
+    private Product product;
+
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Long getId()
     {
@@ -49,5 +51,14 @@ public class Feature
     {
         this.status = status;
     }
-    
+
+    @ManyToOne
+    public Product getProduct()
+    {
+        return this.product;
+    }
+    public void setProduct(Product product)
+    {
+        this.product = product;
+    }  
 }

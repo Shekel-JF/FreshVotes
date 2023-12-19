@@ -36,15 +36,12 @@
                     <form action="" method="post">
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                         <fieldset>
-                            <legend style="margin-bottom: 20px;">Register for an account!</legend>
+                            <legend style="margin-bottom: 20px;">Register for an account</legend>
                             <div th:if="${param.error != null}" class="alert alert-danger col-md-9 mx-auto" role="alert">
-                                Failed to register.
+                                Failed to create an account.
                                 <div th:if="${SPRING_SECURITY_LAST_EXCEPTION != null}">
                                     Reason: <span th:text="${SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
                                 </div>
-                            </div>
-                            <div th:if="${param.logout != null}" class="alert alert-info col-md-9 mx-auto" role="alert">
-                                You have been logged out.
                             </div>
         
                             <div class="input-group mb-3">
@@ -76,7 +73,7 @@
                             </div>
                             
                             <div class="col-12 text-center align-text-center">
-                                <p style="font-size: 0.9rem;"><a href="/login" style="color: #0DCAF0; text-decoration: underline;">Return to the login page</a></p>
+                                <p style="font-size: 0.9rem;"><a href="/login" style="color: #0DCAF0; text-decoration: underline;">return to the login page</a></p>
                             </div>         
                         </fieldset>
                     </form>

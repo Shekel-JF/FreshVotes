@@ -24,6 +24,7 @@ public class User
     private String password;
     private String name;
     private Set<Authority> authorities = new HashSet<>();
+    private Set<Product> products = new HashSet<>();
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Long getId()
@@ -61,6 +62,17 @@ public class User
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    @OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY, mappedBy="user")
+    public Set<Product> getProducts()
+    {
+        return this.products;
+    }
+
+    public void setProducts(Set<Product> products)
+    {
+        this.products = products;
     }
 
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="user")
