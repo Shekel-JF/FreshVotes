@@ -37,13 +37,13 @@
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                         <fieldset>
                             <legend style="margin-bottom: 20px;">Register for an account</legend>
-                            <div th:if="${param.error != null}" class="alert alert-danger col-md-9 mx-auto" role="alert">
+                            <!--<div th:if="${param.error != null}" class="alert alert-danger col-md-9 mx-auto" role="alert">
                                 Failed to create an account.
                                 <div th:if="${SPRING_SECURITY_LAST_EXCEPTION != null}">
                                     Reason: <span th:text="${SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
                                 </div>
                             </div>
-        
+                            -->
                             <div class="input-group mb-3">
                                 <div class="col-12 col-sm-12 col-md-9 mx-auto">
                                     <input type="text" class="form-control" placeholder="name" id="name" name="name"/>
