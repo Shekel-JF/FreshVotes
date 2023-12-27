@@ -19,9 +19,11 @@
         {
             flex-grow: 1;
         }
-        .card-button-container {
-        margin-top: auto;
-    }
+        .card-footer
+        { /* Dowolna wartość, aby dostosować odległość od dolnej krawędzi */
+            margin-left: 0px;
+            margin-bottom: 8px; /* Dowolna wartość, aby dostosować odległość od lewej krawędzi */
+        }
     </style>
 </head>
 <body>
@@ -65,8 +67,6 @@
                         <div class="card-body">
                             <h5 class="card-title" th:text="${product.name}"></h5>
                             <!--<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
-                            
-
                         </div>
                         <div class="card-footer bg-transparent border-0">
                             <form th:action="@{/products/{productId}(productId=${product.id})}" method="get">
