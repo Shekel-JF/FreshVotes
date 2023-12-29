@@ -47,10 +47,16 @@
                             <!--<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
                         </div>
                         <div class="card-footer bg-transparent border-0">
-                            <form th:action="@{/products/{productId}(productId=${product.id})}" method="get">
-                                <button type="submit" class="btn btn-outline-info" style="--bs-btn-padding-y: .4rem; --bs-btn-padding-x: 0.8rem; --bs-btn-font-size: 0.8rem;" th:text="edit"></button>
-                            </form>
-
+                            <div class="btn-group" role="group" aria-label="Product Actions">
+                                <form th:action="@{/products/{productId}(productId=${product.id})}" method="get">
+                                    <button type="submit" class="btn btn-outline-info me-2" style="--bs-btn-padding-y: .4rem; --bs-btn-padding-x: 0.8rem; --bs-btn-font-size: 0.8rem;" th:text="edit"></button>
+                                </form>
+                                <form th:action="@{/products/delete}" method="post">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                    <input type="hidden" th:name="productId" th:value="${product.id}"/>
+                                    <button type="submit" class="btn btn-outline-danger" style="--bs-btn-padding-y: .4rem; --bs-btn-padding-x: 0.8rem; --bs-btn-font-size: 0.8rem;" th:text="delete"></button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
