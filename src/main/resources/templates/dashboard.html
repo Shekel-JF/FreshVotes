@@ -1,30 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeLeaf.org" data-bs-theme="dark">
 <head>
+    <div th:include="fragments/header :: headerElement"></div>
     <title>FreshVotes Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
-    <style>
-        body
-        {
-            font-family: 'Courier New', monospace;
-        }
-        .card
-        {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        .card-body
-        {
-            flex-grow: 1;
-        }
-        .card-footer
-        { /* Dowolna wartość, aby dostosować odległość od dolnej krawędzi */
-            margin-left: 0px;
-            margin-bottom: 8px; /* Dowolna wartość, aby dostosować odległość od lewej krawędzi */
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -72,6 +50,7 @@
                             <form th:action="@{/products/{productId}(productId=${product.id})}" method="get">
                                 <button type="submit" class="btn btn-outline-info" style="--bs-btn-padding-y: .4rem; --bs-btn-padding-x: 0.8rem; --bs-btn-font-size: 0.8rem;" th:text="edit"></button>
                             </form>
+
                         </div>
                     </div>
                 </div>
