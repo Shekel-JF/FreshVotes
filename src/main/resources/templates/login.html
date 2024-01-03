@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeLeaf.org" data-bs-theme="dark">
     <head>
-        <div th:include="fragments/header :: headerElement"></div>
+        <div th:insert="~{fragments/header :: headerElement}"></div>
         <title>FreshVotes login</title>
     </head>
     <body>
         <div class="container">
+            <div th:insert="~{fragments/header :: header}"></div>
             <div class="row">
                 <div style="height: 50px;">
                   

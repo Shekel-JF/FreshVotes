@@ -38,6 +38,7 @@ public class WebSecurityConfig
                 http.authorizeHttpRequests(requests -> requests
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/register").permitAll()
+                        .requestMatchers("/images/**").permitAll() // for future generations
                         .anyRequest().hasRole("USER"))
                         .formLogin(login -> login
                                 .loginPage("/login")

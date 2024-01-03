@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeLeaf.org" data-bs-theme="dark">
     <head>
-        <div th:include="fragments/header :: headerElement"></div>
+        <div th:insert="~{fragments/header :: headerElement}"></div>
         <title>FreshVotes registration</title>
-        <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
         <script type ="text/javascript">
             $(function()
             {
@@ -16,6 +15,7 @@
     </head>
     <body>
         <div class="container">
+            <div th:insert="~{fragments/header :: header}"></div>
             <div class="row">
                 <div style="height: 50px;">
                   
