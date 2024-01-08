@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeLeaf.org" data-bs-theme="dark">
+    <head>
+        <div th:insert="~{fragments/header :: headerElement}"></div>
+        <title th:text="${product.name}">FreshVotes products</title>
+    </head>
+    <body>
+        <div class="container">
+            <div th:insert="~{fragments/header :: header}"></div>
+            <div class="row">
+                <div style="height: 50px;">
+                  
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">  
+                    
+                </div>
+                <div class="col-6 text-center md-4">
+                    <legend th:text="${product.name}" style="margin-bottom: 20px; font-size:40px"></legend>
+
+                    <form th:action="@{/products/{productId}/features(productId=${product.id})}" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <div class="input-group mb-5">
+  
+                        </div>
+                        
+                        <div class="row justify-content-center">
+                            <div class="col-6 mb-3">
+                                <button class="btn btn-outline-info" style="--bs-btn-padding-y: .6rem; --bs-btn-padding-x: 1.2rem; --bs-btn-font-size: 1.0rem;">Create Feature Request</button>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+                <div class="col-3">  
+                    
+                </div>
+            </div>
+        </div>       
+    </body>
+</html>

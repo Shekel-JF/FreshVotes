@@ -1,6 +1,7 @@
 package com.freshvotes.web;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.freshvotes.domain.Product;
 import com.freshvotes.domain.User;
 import com.freshvotes.repositories.ProductRepository;
+
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -69,5 +71,18 @@ public class ProductController
         return "redirect:/dashboard";
     }
     
-    
+    @GetMapping("p/{productName}")
+    public String productUserView(@PathVariable String productName, ModelMap model) throws UnsupportedEncodingException
+    {
+        if(productName != null)
+        {
+                Optional<Product> productOpt = productRepo.findByName(productName);
+
+                if(productOpt.isPresent())
+                {
+                    model.put("product", productOpt.get());
+                }
+        }
+        return "productUserView";  
+    } 
 }
