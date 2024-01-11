@@ -17,7 +17,21 @@
                     
                 </div>
                 <div class="col-6 text-center md-4">
-                    <legend style="margin-bottom: 20px; font-size:40px">New Feature</legend>
+                    <form action="" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <input type="hidden" th:field="${feature.Id}"/>
+                        <input type="hidden" th:field="${feature.product}"/>
+                        <input type="hidden" th:field="${feature.status}"/>
+                        <legend style="margin-bottom: 20px; font-size:40px">New Feature</legend>
+                        <div>
+                            <input type="text" th:field="${feature.title}"></input>
+                        </div>
+                        <div>
+                            <input type="text" th:field="${feature.description}"></input>
+                        </div>
+                        <button type="submit" class="btn btn-outline-info" style="--bs-btn-padding-y: .6rem; --bs-btn-padding-x: 1.2rem; --bs-btn-font-size: 1.0rem;">submit</button>
+                    </form>
+
 
                     
                 </div>
