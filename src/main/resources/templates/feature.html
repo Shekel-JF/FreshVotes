@@ -22,18 +22,29 @@
                         <input type="hidden" th:field="${feature.Id}"/>
                         <input type="hidden" th:field="${feature.product}"/>
                         <input type="hidden" th:field="${feature.status}"/>
-                        <legend style="margin-bottom: 20px; font-size:40px">New Feature</legend>
-                        <div>
-                            <input type="text" th:field="${feature.title}"></input>
+                        
+                        <legend style="margin-bottom: 30px; font-size:30px">New Feature</legend>
+
+                        <div class="input-group mb-3">
+                            <div class="col-12 col-sm-12 col-md-12 mx-auto">                    
+                                <input type="text" th:field="${feature.title}" class="form-control" placeholder="title"/>
+                            </div>     
                         </div>
-                        <div>
-                            <input type="text" th:field="${feature.description}"></input>
+                        <div class="input-group mb-4">
+                            <div class="col-12 col-sm-12 col-md-12 mx-auto">                    
+                                <textarea rows="4" th:field="${feature.description}" class="form-control" placeholder="description"> </textarea>
+                            </div>     
                         </div>
-                        <button type="submit" class="btn btn-outline-info" style="--bs-btn-padding-y: .6rem; --bs-btn-padding-x: 1.2rem; --bs-btn-font-size: 1.0rem;">submit</button>
+
+                        <div class="row">
+                            <div class="col-6 text-start">
+                                <span class="text"  th:text="${'Status: ' + feature.status}" style="position: relative; top: -5px;"></span>
+                            </div>
+                            <div class="col-6 text-end">
+                                <button type="submit" class="btn btn-outline-info" style="--bs-btn-padding-y: .6rem; --bs-btn-padding-x: 1.2rem; --bs-btn-font-size: 1.0rem;">Save feature</button>
+                            </div>          
+                        </div>
                     </form>
-
-
-                    
                 </div>
             </div>
         </div>       
