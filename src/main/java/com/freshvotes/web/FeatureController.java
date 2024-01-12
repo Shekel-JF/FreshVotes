@@ -1,7 +1,11 @@
 package com.freshvotes.web;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,6 +22,8 @@ import com.freshvotes.service.FeatureService;
 @RequestMapping("/products/{productId}/features")
 public class FeatureController
 {
+    Logger log = LoggerFactory.getLogger(FeatureController.class);
+
     @Autowired
     private FeatureService featureService;
 
@@ -44,6 +50,7 @@ public class FeatureController
     public String updateFeature(Feature feature, @PathVariable Long productId, @PathVariable Long featureId)
     {
         feature = featureService.save(feature);
-        return "redirect:/products/" + productId + "/features/" + feature.getId();
+         
+        return "redirect:/p/" + feature.getProduct().getName();
     }
 }
