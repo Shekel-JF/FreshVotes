@@ -68,7 +68,7 @@ public class User
     @OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY, mappedBy="user")
     public Set<Product> getProducts()
     {
-        return this.products;
+        return products;
     }
 
     public void setProducts(Set<Product> products)
@@ -79,7 +79,7 @@ public class User
     @OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY, mappedBy="user")
     public Set<Feature> getFeatures()
     {
-        return this.features;
+        return features;
     }
 
     public void setFeatures(Set<Feature> features)
@@ -90,7 +90,7 @@ public class User
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="user")
     public Set<Authority> getAuthorities()
     {
-        return this.authorities;
+        return authorities;
     }
     public void setAuthorities(Set<Authority> authorities)
     {
