@@ -14,6 +14,7 @@ public class Feature
     private String description;
     private String status;
     private Product product;
+    private User user;
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Long getId()
@@ -60,5 +61,15 @@ public class Feature
     public void setProduct(Product product)
     {
         this.product = product;
-    }  
+    }
+
+    @ManyToOne
+    public User getUser()
+    {
+        return this.user;
+    }
+    public void setUser(User user)
+    {
+        this.user = user;
+    } 
 }

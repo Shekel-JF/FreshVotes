@@ -25,6 +25,7 @@ public class User
     private String name;
     private Set<Authority> authorities = new HashSet<>();
     private Set<Product> products = new HashSet<>();
+    private Set<Feature> features = new HashSet<>();
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Long getId()
@@ -73,6 +74,17 @@ public class User
     public void setProducts(Set<Product> products)
     {
         this.products = products;
+    }
+
+    @OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY, mappedBy="user")
+    public Set<Feature> getFeatures()
+    {
+        return this.features;
+    }
+
+    public void setFeatures(Set<Feature> features)
+    {
+        this.features = features;
     }
 
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="user")
