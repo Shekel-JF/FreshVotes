@@ -11,8 +11,9 @@ public class UserDetailsServiceTest
     public void generate_encrypted_password()
     {
         BCryptPasswordEncoder encoder =new BCryptPasswordEncoder();
-        String raw = "eee";
+        String raw = "nword";
         String encodedPassword = encoder.encode(raw);
+        System.out.println(encodedPassword);
         assertThat(raw, not(encodedPassword));
     }
 }

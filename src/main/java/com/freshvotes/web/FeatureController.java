@@ -36,9 +36,12 @@ public class FeatureController
         Optional<Feature> featureOpt = featureService.findById(featureId);
         if(featureOpt.isPresent())
         {
-            model.put("feature", featureOpt.get());
+            Feature feature = featureOpt.get();
+            model.put("feature", feature);
+            model.put("comments", feature.getComments());
         }
         model.put("user", user);
+        
         // TODO what if no featureid present
         return "feature";
     }
