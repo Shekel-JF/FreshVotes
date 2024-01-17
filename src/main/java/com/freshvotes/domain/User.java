@@ -3,6 +3,8 @@ package com.freshvotes.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators.IntSequenceGenerator;
 import com.freshvotes.security.Authority;
 
 import jakarta.persistence.CascadeType;
@@ -17,6 +19,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
+@JsonIdentityInfo(generator=IntSequenceGenerator.class, property="@id")
 public class User
 {
     private Long id;

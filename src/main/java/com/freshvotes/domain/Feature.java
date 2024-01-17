@@ -1,7 +1,10 @@
 package com.freshvotes.domain;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators.IntSequenceGenerator;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -13,6 +16,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
+@JsonIdentityInfo(generator=IntSequenceGenerator.class, property="@id")
 public class Feature
 {
     private Long id;
@@ -21,7 +25,7 @@ public class Feature
     private String status;
     private Product product;
     private User user;
-    private Set<Comment> comments = new HashSet<>();
+    private Set<Comment> comments = new TreeSet<>();
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Long getId()

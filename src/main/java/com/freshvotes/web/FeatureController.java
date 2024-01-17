@@ -1,6 +1,7 @@
 package com.freshvotes.web;
 
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.freshvotes.domain.Comment;
 import com.freshvotes.domain.Feature;
 import com.freshvotes.domain.User;
 import com.freshvotes.service.FeatureService;
@@ -38,7 +40,7 @@ public class FeatureController
         {
             Feature feature = featureOpt.get();
             model.put("feature", feature);
-            model.put("comments", feature.getComments());
+            model.put("comments", getCommentsWithoutDuplicates(feature));
         }
         model.put("user", user);
         
@@ -53,5 +55,10 @@ public class FeatureController
         feature = featureService.save(feature);
          
         return "redirect:/p/" + feature.getProduct().getName();
+    }
+
+    private Set<Comment> getCommentsWithoutDuplicates(Feature feature)
+    {
+        return feature.getComments();
     }
 }

@@ -30,10 +30,8 @@
                                 <input type="text" th:field="${feature.title}" class="form-control" placeholder="title" th:disabled="${user.id != feature.user.id}"/>
                             </div>     
                         </div>
-                        <div class="input-group mb-4">
-                            <div class="col-12 col-sm-12 col-md-12 mx-auto">                    
-                                <textarea rows="4" th:field="${feature.description}" class="form-control" placeholder="description" th:disabled="${user.id != feature.user.id}"> </textarea>
-                            </div>     
+                        <div class="input-group mb-4">                
+                            <textarea rows="4" th:field="${feature.description}" class="form-control" placeholder="description" th:disabled="${user.id != feature.user.id}"> </textarea>  
                         </div>
 
                         <div class="row">
@@ -48,6 +46,13 @@
 
                     <div style="margin-top:2em">
                         <h2>Comments</h2>
+                        <form action="" method="post">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                            <div class="input-group mb-4">
+                                <textarea rows="4" th:field="${feature.description}" class="form-control" placeholder="leave a comment here" th:disabled="${user.id != feature.user.id}"> </textarea>
+                            </div>
+                        </form>
+
                         <div th:each="comment : ${comments}">
                             <span th:text="${comment.text}"></span>
                         </div>
