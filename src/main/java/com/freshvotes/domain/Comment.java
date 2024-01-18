@@ -2,11 +2,8 @@ package com.freshvotes.domain;
 
 import java.util.Date;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.hibernate.annotations.SortComparator;
-import org.hibernate.annotations.SortNatural;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,7 +21,7 @@ import jakarta.persistence.OrderBy;
 
 @Entity
 @JsonIdentityInfo(generator=IntSequenceGenerator.class, property="@id")
-public class Comment implements Comparable<Comment>
+public class Comment
 {
     private Long id;
     private String text;
@@ -135,26 +132,6 @@ public class Comment implements Comparable<Comment>
             }
         }
         return true;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
-    }
-
-    @Override
-    public int compareTo(Comment that)
-    {
-        int comparedValue = this.createDate.compareTo(that.createDate);
-        if(comparedValue == 0)
-        {
-            comparedValue = this.id.compareTo(that.id);
-        }
-        return comparedValue;
     }
 }
 
