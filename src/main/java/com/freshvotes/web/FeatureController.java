@@ -1,7 +1,11 @@
 package com.freshvotes.web;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -40,8 +44,11 @@ public class FeatureController
         {
             Feature feature = featureOpt.get();
             model.put("feature", feature);
-            model.put("comments", getCommentsWithoutDuplicates(feature));
+
+            Set<Comment> commentsWithoutDuplicates = getCommentsWithoutDuplicates(0, new HashSet<Long>(), feature.getComments());
+            model.put("comments", commentsWithoutDuplicates);
         }
+
         model.put("user", user);
         
         // TODO what if no featureid present
@@ -57,8 +64,29 @@ public class FeatureController
         return "redirect:/p/" + feature.getProduct().getName();
     }
 
-    private Set<Comment> getCommentsWithoutDuplicates(Feature feature)
+    private Set<Comment> getCommentsWithoutDuplicates(int page, Set<Long> visitedComments, Set<Comment> comments)
     {
-        return feature.getComments();
+        page++;
+        Iterator<Comment> itr = comments.iterator();
+        while(itr.hasNext())
+        {
+            Comment comment = itr.next();
+            boolean addedToVisitedComments = visitedComments.add(comment.getId());
+            
+            if(!addedToVisitedComments)
+            {
+                itr.remove();
+                if(page != 1)
+                {
+                    return comments;
+                }           
+            }
+            else if(!comment.getComments().isEmpty())
+            {
+                getCommentsWithoutDuplicates(page, visitedComments, comment.getComments());
+            }
+            
+        }
+        return comments;
     }
 }

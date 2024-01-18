@@ -1,8 +1,12 @@
 package com.freshvotes.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import org.hibernate.annotations.SortComparator;
+import org.hibernate.annotations.SortNatural;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,6 +20,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 
 @Entity
 @JsonIdentityInfo(generator=IntSequenceGenerator.class, property="@id")
@@ -25,7 +30,7 @@ public class Comment implements Comparable<Comment>
     private String text;
     private User user;
     private Feature feature;
-    private List<Comment> comments = new ArrayList<>();
+    private Set<Comment> comments = new TreeSet<>();
     private Comment comment;
     private Date createDate;
 
@@ -72,11 +77,12 @@ public class Comment implements Comparable<Comment>
     }
 
     @OneToMany(mappedBy="comment")
-    public List<Comment> getComments()
+    @OrderBy("createDate, id")
+    public Set<Comment> getComments()
     {
         return this.comments;
     }
-    public void setComments(List<Comment> comments)
+    public void setComments(Set<Comment> comments)
     {
         this.comments = comments;
     }

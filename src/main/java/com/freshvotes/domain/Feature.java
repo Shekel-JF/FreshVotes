@@ -14,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 
 @Entity
 @JsonIdentityInfo(generator=IntSequenceGenerator.class, property="@id")
@@ -84,7 +85,9 @@ public class Feature
         this.user = user;
     } 
 
+
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="feature")
+    @OrderBy("createDate, id")
     public Set<Comment> getComments()
     {
         return comments;
@@ -93,6 +96,4 @@ public class Feature
     {
         this.comments = comments;
     }
-
-
 }
