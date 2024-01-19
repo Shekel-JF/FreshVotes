@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -46,7 +44,7 @@ public class FeatureController
             model.put("feature", feature);
 
             Set<Comment> commentsWithoutDuplicates = getCommentsWithoutDuplicates(0, new HashSet<Long>(), feature.getComments());
-            model.put("comments", commentsWithoutDuplicates);
+            model.put("thread", commentsWithoutDuplicates);
         }
 
         model.put("user", user);
