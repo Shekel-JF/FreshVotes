@@ -2,6 +2,18 @@
 <html xmlns:th="http://thymeLeaf.org" data-bs-theme="dark">
     <head>
         <div th:insert="~{fragments/header :: headerElement}"></div>
+        <script type="text/javascript">
+            $(function ()
+            {
+                $("button[id*='replyBtn-']").click(function()
+                {
+                    let commentId = $(this).prop("id").split("-")[1]
+                    let formId = "replyForm-" + commentId
+
+                    $("#"+formId).removeClass("d-none")
+                })
+            })
+        </script>
         <title>FreshVotes features</title>
     </head>
     <body>
@@ -59,7 +71,7 @@
                             </div>
                         </form>
                         <hr/>
-                        <div th:replace="fragments/comment :: commentThread"></div>
+                        <div th:replace="~{fragments/comment :: commentThread}"></div>
                     </div>
                 </div>
             </div>
