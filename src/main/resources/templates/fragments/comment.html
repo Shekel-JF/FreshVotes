@@ -3,7 +3,7 @@
         <div th:fragment="commentThread" th:remove="tag">
             <div th:each="comment : ${thread}" style="margin-left: 2em">
                 <div th:inline="text">
-                   <strong>[[${comment.user.name}]]</strong>  - [[${#dates.format(comment.createDate, 'dd MMM, yyyy HH:mm')}]]
+                   <strong>[[${comment.user.name}]]</strong>  - [[${#dates.format(comment.createDate, 'dd.MM.yyyy HH:mm')}]]
                 </div>
                 <span th:text="${comment.text}">Example Comment</span>
                 <div>
