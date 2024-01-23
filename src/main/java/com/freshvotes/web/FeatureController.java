@@ -45,7 +45,7 @@ public class FeatureController
 
             Set<Comment> commentsWithoutDuplicates = getCommentsWithoutDuplicates(0, new HashSet<Long>(), feature.getComments());
             model.put("thread", commentsWithoutDuplicates);
-            model.put("comment", new Comment());
+            model.put("rootComment", new Comment());
         }
 
         model.put("user", user);

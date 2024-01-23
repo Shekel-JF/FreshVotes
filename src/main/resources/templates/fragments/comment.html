@@ -15,7 +15,7 @@
                     <input type="hidden" name="parentId" th:id="|parentId-${comment.id}|" th:value="${comment.id}"/>
 
                     <div class="input-group mb-4">
-                        <textarea rows="2" class="form-control" name="childCommentText" th:id="|childCommentText-${comment.id}|" placeholder="leave a reply here"> </textarea>
+                        <textarea rows="3" class="form-control" name="childCommentText"  placeholder="leave a reply here" th:id="|childCommentText-${comment.id}|"> </textarea>
                     </div>
                     <div class="text-end">
                         <button type="submit" class="btn btn-outline-info" style="--bs-btn-padding-y: .6rem; --bs-btn-padding-x: 1.2rem; --bs-btn-font-size: 1.0rem;">submit</button>

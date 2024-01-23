@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,33 +39,39 @@ public class CommentController
     }
 
     @PostMapping("")
-    public String postComment(@AuthenticationPrincipal User user, Comment comment,
+    public String postComment(@AuthenticationPrincipal User user, Comment rootComment,
     @PathVariable Long featureId, @PathVariable Long productId,
     @RequestParam(required=false) Long parentId, @RequestParam(required=false) String childCommentText)
     {      
-        Optional<Feature> featureOpt = featureRepo.findById(featureId);    
-        if(parentId!=null)
+        Optional<Feature> featureOpt = featureRepo.findById(featureId);   
+        
+        if(StringUtils.hasLength(rootComment.getText()))
+        {
+            populateCommentMetadata(user, featureOpt, rootComment);
+            commentRepo.save(rootComment);
+        }
+        else if(parentId != null)
         {   
-            comment = new Comment();
+            Comment comment = new Comment();
             Optional<Comment> parentCommentOpt = commentRepo.findById(parentId);
             if(parentCommentOpt.isPresent())
             {
                 comment.setComment(parentCommentOpt.get());
             }
             comment.setText(childCommentText);
-        }
+            populateCommentMetadata(user, featureOpt, comment);
+            commentRepo.save(comment);
+        }     
+        return "redirect:/products/" + productId + "/features/" + featureId;
+    }
 
-        
+    private void populateCommentMetadata(User user, Optional<Feature> featureOpt, Comment comment)
+    {
         if(featureOpt.isPresent())
         {
             comment.setFeature(featureOpt.get());
         }
         comment.setUser(user);
         comment.setCreateDate(new Date());
-
-       
-        commentRepo.save(comment);
-        
-        return "redirect:/products/" + productId + "/features/" + featureId;
     }
 }

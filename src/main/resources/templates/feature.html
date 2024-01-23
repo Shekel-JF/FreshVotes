@@ -9,8 +9,7 @@
                 {
                     $("form[id*='replyForm-']:not(.d-none)").each(function()
                     {
-                        let commentId = $(this).prop("id").split("-")[1]
-                        let formId = "replyForm-" + commentId
+                        let formId = $(this).prop("id")
                         $("#"+formId).addClass("d-none")
                     })
                     let commentId = $(this).prop("id").split("-")[1]
@@ -70,7 +69,7 @@
                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
                             <div class="input-group mb-4">
-                                <textarea rows="4" th:field="${comment.text}" class="form-control" placeholder="leave a comment here"> </textarea>
+                                <textarea rows="4" th:field="${rootComment.text}" class="form-control" placeholder="leave a comment here"> </textarea>
                             </div>
                             <div class="text-end">
                                 <button type="submit" class="btn btn-outline-info" style="--bs-btn-padding-y: .6rem; --bs-btn-padding-x: 1.2rem; --bs-btn-font-size: 1.0rem;">submit</button>
