@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.freshvotes.domain.Comment;
@@ -37,16 +38,31 @@ public class CommentController
     }
 
     @PostMapping("")
-    public String postComment(@AuthenticationPrincipal User user, @PathVariable Long featureId, @PathVariable Long productId, Comment comment)
-    {
-        Optional<Feature> featureOpt = featureRepo.findById(featureId);
+    public String postComment(@AuthenticationPrincipal User user, Comment comment,
+    @PathVariable Long featureId, @PathVariable Long productId,
+    @RequestParam(required=false) Long parentId, @RequestParam(required=false) String childCommentText)
+    {      
+        Optional<Feature> featureOpt = featureRepo.findById(featureId);    
+        if(parentId!=null)
+        {   
+            comment = new Comment();
+            Optional<Comment> parentCommentOpt = commentRepo.findById(parentId);
+            if(parentCommentOpt.isPresent())
+            {
+                comment.setComment(parentCommentOpt.get());
+            }
+            comment.setText(childCommentText);
+        }
+
+        
         if(featureOpt.isPresent())
         {
             comment.setFeature(featureOpt.get());
         }
         comment.setUser(user);
         comment.setCreateDate(new Date());
-    
+
+       
         commentRepo.save(comment);
         
         return "redirect:/products/" + productId + "/features/" + featureId;
