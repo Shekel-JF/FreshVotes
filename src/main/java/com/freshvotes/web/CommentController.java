@@ -74,4 +74,20 @@ public class CommentController
         comment.setUser(user);
         comment.setCreateDate(new Date());
     }
+
+    @PostMapping("/delete")
+    public String deleteComment(@AuthenticationPrincipal User user, @RequestParam Long commentId, 
+    @PathVariable Long featureId, @PathVariable Long productId)
+    {
+        Optional<Comment> commentOpt = commentRepo.findById(commentId);
+        if(commentOpt.isPresent())
+        {
+            if(user.getId() == commentOpt.get().getUser().getId())
+            {
+                commentRepo.deleteById(commentId);
+            }       
+        }
+       
+        return "redirect:/products/" + productId + "/features/" + featureId;
+    }
 }

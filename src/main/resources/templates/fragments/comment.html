@@ -8,8 +8,16 @@
                 <span th:text="${comment.text}"></span>
                 <div>
                     <button class="btn btn-link" style="position: relative; left: -12px;" th:id="|replyBtn-${comment.id}|">reply</button>
-
+                    <div th:if="${comment.user.id == user.id}">
+                        <form th:action="@{/products/{productId}/features/{featureId}/comments/delete(productId=${feature.product.id},featureId=${feature.id})}" method="post">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                            <input type="hidden" th:name="commentId" th:value="${comment.id}"/>
+                            <input type="hidden" th:name="productId" th:value="${comment.feature.product.id}"/>
+                            <button type="submit" class="btn btn-link">delete</button>
+                        </form>
+                    </div>
                 </div>
+
                 <form th:id="|replyForm-${comment.id}|" class="d-none" th:action="@{/products/{productId}/features/{featureId}/comments(productId=${feature.product.id},featureId=${feature.id})}" method="post">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                     <input type="hidden" name="parentId" th:id="|parentId-${comment.id}|" th:value="${comment.id}"/>
