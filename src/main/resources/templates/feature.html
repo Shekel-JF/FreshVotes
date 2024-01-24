@@ -19,6 +19,13 @@
                 })
             })
         </script>
+        <script>
+            function updateStatus(newStatus)
+            {
+                $('#selectedStatus').val(newStatus);
+                $('#statusText').text(newStatus);            
+            }
+        </script>
         <title>FreshVotes features</title>
     </head>
     <body>
@@ -38,7 +45,6 @@
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                         <input type="hidden" th:field="${feature.Id}"/>
                         <input type="hidden" th:field="${feature.product}"/>
-                        <input type="hidden" th:field="${feature.status}"/>
                         
                         <div class="text-center">
                             <legend style="margin-bottom: 30px; font-size:30px">New Feature</legend>
@@ -54,8 +60,18 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-6 text-start">
-                                <span class="text"  th:text="${'Status: ' + feature.status}" style="position: relative; top: -5px;"></span>
+                            <div class="col-6">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="statusDropdownBtn" name="selectedStatus" th:disabled="${user.id != feature.user.id}">
+                                        <span id="statusText" th:text="${feature.status}"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#" onclick="updateStatus('Accepted')">Accepted</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="updateStatus('Not Accepted')">Not Accepted</a></li>
+                                    </ul>
+                                </div>
+                                <input type="hidden" th:field="${feature.status}" id="selectedStatus"/>
+
                             </div>
                             <div class="col-6 text-end" th:if="${user.id == feature.user.id}">
                                 <button type="submit" class="btn btn-outline-info" style="--bs-btn-padding-y: .6rem; --bs-btn-padding-x: 1.2rem; --bs-btn-font-size: 1.0rem;">Save feature</button>

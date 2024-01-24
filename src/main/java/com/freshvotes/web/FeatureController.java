@@ -60,7 +60,7 @@ public class FeatureController
         feature.setUser(user);
         feature = featureService.save(feature);
          
-        return "redirect:/p/" + feature.getProduct().getName();
+        return "redirect:/products/" + productId + "/features/" + feature.getId();
     }
 
     private Set<Comment> getCommentsWithoutDuplicates(int page, Set<Long> visitedComments, Set<Comment> comments)
