@@ -28,4 +28,12 @@ public class Vote
     {
         this.upvote = upvote;
     }
+
+
+    @Override
+    public String toString() {
+        return "{" +
+            "upvote='" + getUpvote() + "'" +
+            "}";
+    }
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.freshvotes.domain.Comment;
 import com.freshvotes.domain.Feature;
 import com.freshvotes.domain.User;
+import com.freshvotes.repositories.UpvoteRepository;
 import com.freshvotes.service.FeatureService;
 
 
@@ -26,6 +27,9 @@ public class FeatureController
 {
     @Autowired
     private FeatureService featureService;
+
+    @Autowired
+    private UpvoteRepository upvoteRepo;
 
     @PostMapping("")
     public String createFeature(@AuthenticationPrincipal User user, @PathVariable long productId)
@@ -46,6 +50,8 @@ public class FeatureController
             Set<Comment> commentsWithoutDuplicates = getCommentsWithoutDuplicates(0, new HashSet<Long>(), feature.getComments());
             model.put("thread", commentsWithoutDuplicates);
             model.put("rootComment", new Comment());
+            model.put("upvote", upvoteRepo.findByPkUserAndPkFeature(user, feature));
+            model.put("upvoteSum", featureService.countUpvotesForFeature(featureId));
         }
 
         model.put("user", user);

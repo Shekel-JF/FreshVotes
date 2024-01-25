@@ -52,4 +52,9 @@ public class FeatureService
     {
         return featureRepo.findById(featureId);
     }
+
+    public Long countUpvotesForFeature(Long featureId)
+    {
+        return featureRepo.countUpvotesForFeature(featureId);
+    }
 }
