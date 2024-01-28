@@ -1,6 +1,6 @@
 package com.freshvotes.repositories;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,5 +11,5 @@ import com.freshvotes.domain.VoteId;
 
 public interface UpvoteRepository extends JpaRepository<Vote, VoteId>
 {
-    List<Vote> findByPkUserAndPkFeature(User user, Feature feature);
+    Optional<Vote> findByPkUserAndPkFeature(User user, Feature feature);
 }

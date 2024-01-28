@@ -26,6 +26,28 @@
                 $('#statusText').text(newStatus);            
             }
         </script>
+        <script>
+            function updateCheckboxes(first, second)
+            { 
+                let upvoteInput = document.createElement('input');
+                    upvoteInput.type = 'hidden';
+                    upvoteInput.name = 'upvote';
+                    document.querySelector('form').appendChild(upvoteInput);
+                
+                if (first.checked)
+                {
+                    second.checked = false;
+                }
+                else if (second.checked)
+                {
+                    first.checked = false;
+                }
+                else
+                {
+                    upvoteInput.remove();
+                }
+            }
+          </script>
         <title>FreshVotes features</title>
     </head>
     <body>
@@ -75,14 +97,35 @@
                             </div>
                             <div class="col-6 text-end" th:if="${user.id == feature.user.id}">
                                 <button type="submit" class="btn btn-outline-info" style="--bs-btn-padding-y: .6rem; --bs-btn-padding-x: 1.2rem; --bs-btn-font-size: 1.0rem;">Save feature</button>
-                            </div> 
-                            <div th:text="${upvote}">
-                                
-                            </div>
-                            <div th:text="${upvoteSum}">
-                                
-                            </div>        
+                            </div>  
                         </div>
+                    </form>
+
+                    <form th:action="@{/products/{productId}/features/{featureId}/votes(productId=${feature.product.id},featureId=${feature.id})}" method="post">
+                        <div th:text="${upvote}">
+                             
+                        </div>
+                        <div th:text="${upvoteSum}">
+                            
+                        </div>
+                                           
+                        <div class="form-check">                                        
+                            <input class="form-check-input" type="checkbox" id="vote" th:name="upvote" th:checked="${upvote}" onclick="updateCheckboxes(this, document.getElementById('downvote'))">
+                            <label class="form-check-label" for="vote">
+                                upvote
+                            </label>
+                          </div>
+                          
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="downvote" th:name ="upvote" th:checked="${upvote} == false" th:value="!${upvote}" onclick="updateCheckboxes(this, document.getElementById('vote'))">
+                            <label class="form-check-label" for="downvote">
+                                downvote
+                            </label>
+                        </div>
+                          
+
+                        
+                        <button type="submit" class="btn btn-outline-info" style="--bs-btn-padding-y: .6rem; --bs-btn-padding-x: 1.2rem; --bs-btn-font-size: 1.0rem;">temporary button</button>
                     </form>
 
                     <div style="margin-top:2em; margin-bottom:2em">
