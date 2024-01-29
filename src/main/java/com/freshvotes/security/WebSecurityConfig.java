@@ -35,11 +35,12 @@ public class WebSecurityConfig
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
         return
-                http.authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/").permitAll()
-                        .requestMatchers("/register").permitAll()
-                        .requestMatchers("/images/**").permitAll() // for future generations
-                        .anyRequest().hasRole("USER"))
+                http.headers(headers -> headers.disable())
+                        .authorizeHttpRequests(requests -> requests
+                                .requestMatchers("/").permitAll()
+                                .requestMatchers("/register").permitAll()
+                                .requestMatchers("/images/**").permitAll() // for future generations
+                                .anyRequest().hasRole("USER"))
                         .formLogin(login -> login
                                 .loginPage("/login")
                                 .defaultSuccessUrl("/dashboard")
