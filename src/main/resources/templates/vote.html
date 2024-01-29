@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeLeaf.org" data-bs-theme="dark">
+    <head>
+        <div th:insert="~{fragments/header :: headerElement}"></div>
+        <script>
+            function updateCheckboxes(first, second)
+            { 
+                if (first.checked)
+                {
+                    second.checked = false;
+                }
+                else if (second.checked)
+                {
+                    first.checked = false;
+                    second.checked = true;
+                }
+                else
+                {       
+                    first.checked = false;        
+                    second.checked = false;                 
+                }
+                updateForm();
+            }
+            function updateForm()
+            {
+                var form = document.getElementById('voting');
+                if (form)
+                {
+                    form.submit();
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <form th:action="@{/products/{productId}/features/{featureId}/votes(productId=${feature.product.id},featureId=${feature.id})}" method="post" th:id="voting">
+            <div class="form-check">                                        
+                <input class="form-check-input" type="checkbox" id="vote" th:name="upvote" th:checked="${upvote}" onclick="updateCheckboxes(this, document.getElementById('downvote'))">
+                <label class="form-check-label" for="vote">
+                    upvote
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="downvote" th:name ="upvote" th:checked="${upvote} == false" th:value="${upvote} == false" onclick="updateCheckboxes(this, document.getElementById('vote'))">
+                <label class="form-check-label" for="downvote">
+                    downvote
+                </label>
+            </div>
+        </form>
+    </body>
+</html>

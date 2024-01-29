@@ -26,34 +26,6 @@
                 $('#statusText').text(newStatus);            
             }
         </script>
-        <script>
-            function updateCheckboxes(first, second)
-            { 
-                if (first.checked)
-                {
-                    second.checked = false;
-                }
-                else if (second.checked)
-                {
-                    first.checked = false;
-                    second.checked = true;
-                }
-                else
-                {      
-                    second.checked = false;  
-                    first.checked = false;                        
-                }
-                updateForm();
-            }
-            function updateForm()
-            {
-                var form = document.getElementById('voting');
-                if (form)
-                {
-                    form.submit();
-                }
-            }
-          </script>
         <title>FreshVotes features</title>
     </head>
     <body>
@@ -106,29 +78,8 @@
                             </div>  
                         </div>
                     </form>
+                    <iframe th:src="@{/products/{productId}/features/{featureId}/votes(productId=${feature.product.id},featureId=${feature.id})}" id="voting" name="voting" style="visibility: hidden" onload="this.style.visibility = 'visible';"></iframe>
 
-                    <form th:action="@{/products/{productId}/features/{featureId}/votes(productId=${feature.product.id},featureId=${feature.id})}" method="post" th:id="voting">
-                        <div th:text="${upvote}">
-                             
-                        </div>
-                        <div th:text="${upvoteSum}">
-                            
-                        </div>
-                                           
-                        <div class="form-check">                                        
-                            <input class="form-check-input" type="checkbox" id="vote" th:name="upvote" th:checked="${upvote}" onclick="updateCheckboxes(this, document.getElementById('downvote'))">
-                            <label class="form-check-label" for="vote">
-                                upvote
-                            </label>
-                          </div>
-                          
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="downvote" th:name ="upvote" th:checked="${upvote} == false" th:value="${upvote} == false" onclick="updateCheckboxes(this, document.getElementById('vote'))">
-                            <label class="form-check-label" for="downvote">
-                                downvote
-                            </label>
-                        </div>
-                    </form>
 
                     <div style="margin-top:2em; margin-bottom:2em">
                         <h2>Comments</h2>
