@@ -22,8 +22,9 @@
         <script>
             function updateStatus(newStatus)
             {
-                $('#selectedStatus').val(newStatus);
-                $('#statusText').text(newStatus);            
+                $('#statusText').text(newStatus);
+                $('#featureStatus').val(newStatus);
+                $('#setStatus').submit();
             }
         </script>
         <title>FreshVotes features</title>
@@ -37,51 +38,81 @@
                 </div>
               </div>
             <div class="row">
-                <div class="col-3">  
+                <div class="col-2">  
                     
                 </div>
-                <div class="col-6 md-4">
-                    <form action="" method="post">
-                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                        <input type="hidden" th:field="${feature.Id}"/>
-                        <input type="hidden" th:field="${feature.product}"/>
-                        
-                        <div class="text-center">
-                            <legend style="margin-bottom: 30px; font-size:30px">New Feature</legend>
-                        </div>
-                        
-                        <div class="input-group mb-3">
-                            <div class="col-12 col-sm-12 col-md-12 mx-auto">                    
-                                <input type="text" th:field="${feature.title}" class="form-control" placeholder="title" th:disabled="${user.id != feature.user.id}"/>
-                            </div>     
-                        </div>
-                        <div class="input-group mb-4">                
-                            <textarea rows="4" th:field="${feature.description}" class="form-control" placeholder="description" th:disabled="${user.id != feature.user.id}"> </textarea>  
-                        </div>
+                <div class="col-8">
+                    <div th:if="${feature.user.id == user.id}">
+                        <form action="" method="post" id="featureContent">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                            <input type="hidden" th:field="${feature.Id}"/>
+                            <input type="hidden" th:field="${feature.product}"/>
+                            <input type="hidden" th:field="${feature.status}"/>
 
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="statusDropdownBtn" name="selectedStatus" th:disabled="${user.id != feature.user.id}">
-                                        <span id="statusText" th:text="${feature.status}"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#" onclick="updateStatus('Accepted')">Accepted</a></li>
-                                        <li><a class="dropdown-item" href="#" onclick="updateStatus('Not Accepted')">Not Accepted</a></li>
-                                    </ul>
-                                </div>
-                                <input type="hidden" th:field="${feature.status}" id="selectedStatus"/>
-
+                            <div class="text-center" th:if="${feature.title} == null">
+                                <legend style="margin-bottom: 30px; font-size:30px">New Feature</legend>
                             </div>
-                            <div class="col-6 text-end" th:if="${user.id == feature.user.id}">
-                                <button type="submit" class="btn btn-outline-info" style="--bs-btn-padding-y: .6rem; --bs-btn-padding-x: 1.2rem; --bs-btn-font-size: 1.0rem;">Save feature</button>
-                            </div>  
+                            
+                            <div class="input-group mb-3">
+                                <div class="col-12 col-sm-12 col-md-12 mx-auto">
+                                    <label for="title" class="col-form-label" style="margin-top: 40px;">title</label>           
+                                    <input type="text" th:field="${feature.title}" class="form-control" placeholder="title goes here!" th:disabled="${user.id != feature.user.id}" id="title"/>
+                                </div>     
+                            </div>
+                            <div class="input-group mb-4">
+                                <div class="col-12 col-sm-12 col-md-12 mx-auto">
+                                    <label for="description" class="col-form-label">description</label>             
+                                    <textarea rows="10" th:field="${feature.description}" class="form-control" placeholder="describe your feature idea" th:disabled="${user.id != feature.user.id}" id="description"> </textarea> 
+                                </div>
+                            </div> 
+                        </form>
+                    </div>
+                    <div th:unless="${feature.product.user.id == user.id}">
+                        <div class="text-center">
+                            <div class="mb-5" style="font-size:40px" th:text="${feature.title}"></div>
                         </div>
-                    </form>
-                    <iframe th:src="@{/products/{productId}/features/{featureId}/votes(productId=${feature.product.id},featureId=${feature.id})}" id="voting" name="voting" style="visibility: hidden" onload="this.style.visibility = 'visible';"></iframe>
+                        <div class="">
+                            <div class="mb-5" style="font-size:22px" th:text="${feature.description}"></div>
+                        </div>
+                    </div>
 
+                    <div>
+                        <div class="row">
+                            <div class="dropdown col-6 text-start">
+                                <div th:if="${feature.product.user.id == user.id}">
+                                    <form th:action="@{/products/{productId}/features/{featureId}/status(productId=${feature.product.id},featureId=${feature.id})}" method="post" id="setStatus">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="statusDropdownBtn">
+                                            <span id="statusText" th:text="${feature.status}"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" onclick="updateStatus('Accepted')">Accepted</a></li>
+                                            <li><a class="dropdown-item" onclick="updateStatus('Not Accepted')">Not Accepted</a></li>
+                                        </ul>
+                                        <input type="hidden" id="featureStatus" th:field="${feature.status}"/>
+                                    </form> 
+                                </div>
+                                <div th:unless="${feature.product.user.id == user.id}">
+                                    <div>
+                                        Status: <span th:text="${feature.status}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 text-end">
+                                <div th:if="${feature.user.id == user.id}">
+                                    <button type="submit" form="featureContent" class="btn btn-outline-info" style="--bs-btn-padding-y: .6rem; --bs-btn-padding-x: 1.2rem; --bs-btn-font-size: 1.0rem;">Save feature</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+      
+                    <iframe th:src="@{/products/{productId}/features/{featureId}/votes(productId=${feature.product.id},featureId=${feature.id})}" 
+                        id="voting" 
+                        name="voting" 
+                        style="visibility: hidden; margin-top: 2em; width: 160px; height: 80px;" 
+                        onload="this.style.visibility = 'visible';">
+                    </iframe>
 
-                    <div style="margin-top:2em; margin-bottom:2em">
+                    <div style="margin-bottom:2em">
                         <h2>Comments</h2>
                         <form th:action="@{/products/{productId}/features/{featureId}/comments(productId=${feature.product.id},featureId=${feature.id})}" method="post">
                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>

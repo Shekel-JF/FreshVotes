@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.freshvotes.domain.Comment;
 import com.freshvotes.domain.Feature;
@@ -62,6 +63,19 @@ public class FeatureController
          
         return "redirect:/products/" + productId + "/features/" + featureId;
     }
+
+    @PostMapping("{featureId}/status")
+    public String setFeatureStatus(@AuthenticationPrincipal User user, @PathVariable Long productId, @PathVariable Long featureId, @RequestParam(value = "status") String status)
+    {
+        Optional<Feature> featureOpt = featureService.findById(featureId);
+        if(featureOpt.isPresent())
+        {
+            Feature feature = featureOpt.get();
+            feature.setStatus(status);
+            featureService.save(feature);
+        }     
+        return "redirect:/products/" + productId + "/features/" + featureId;
+    }
  
     private Set<Comment> getCommentsWithoutDuplicates(int page, Set<Long> visitedComments, Set<Comment> comments)
     {
@@ -83,8 +97,7 @@ public class FeatureController
             else if(!comment.getComments().isEmpty())
             {
                 getCommentsWithoutDuplicates(page, visitedComments, comment.getComments());
-            }
-            
+            }      
         }
         return comments;
     }
