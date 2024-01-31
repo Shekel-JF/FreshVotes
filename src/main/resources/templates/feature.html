@@ -85,8 +85,9 @@
                                             <span id="statusText" th:text="${feature.status}"></span>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" onclick="updateStatus('Accepted')">Accepted</a></li>
+                                            <li><a class="dropdown-item" onclick="updateStatus('Pending Review')">Pending Review</a></li>
                                             <li><a class="dropdown-item" onclick="updateStatus('Not Accepted')">Not Accepted</a></li>
+                                            <li><a class="dropdown-item" onclick="updateStatus('Accepted')">Accepted</a></li>                                                                                 
                                         </ul>
                                         <input type="hidden" id="featureStatus" th:field="${feature.status}"/>
                                     </form> 

@@ -53,10 +53,9 @@
                             </form>
                         </div>
 
-                        <div class="card-footer bg-transparent border-0">
-                            
+                        <div class="card-footer bg-transparent border-0">                  
                             <div class="btn-group align-items-end" role="group" aria-label="Product Actions">
-                                <form th:action="@{/p/{productName}(productName=${product.name})}" method="get">
+                                <form th:action="@{/p/{productId}(productId=${product.id})}" method="get">
                                     <button type="submit" class="btn btn-outline-info me-2 d-none d-sm-block" style="--bs-btn-padding-y: .4rem; --bs-btn-padding-x: 0.8rem; --bs-btn-font-size: 0.8rem;" th:text="'show requests'"></button>
                                     <button type="submit" class="btn btn-outline-info me-2 d-sm-none" style="--bs-btn-padding-y: .4rem; --bs-btn-padding-x: 0.8rem; --bs-btn-font-size: 0.8rem;" th:text="'requests'"></button>
                                 </form>

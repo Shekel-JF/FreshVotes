@@ -12,21 +12,23 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.freshvotes.domain.Comment;
 import com.freshvotes.domain.Feature;
 import com.freshvotes.domain.User;
+import com.freshvotes.repositories.UpvoteRepository;
 import com.freshvotes.service.FeatureService;
 
 
 @Controller
-@RequestMapping("/products/{productId}/features")
 public class FeatureController
 {
     @Autowired
     private FeatureService featureService;
+
+    @Autowired
+    private UpvoteRepository upvoteRepo;
 
     @PostMapping("")
     public String createFeature(@AuthenticationPrincipal User user, @PathVariable long productId)
@@ -35,7 +37,7 @@ public class FeatureController
         return "redirect:/products/" + productId + "/features/" + feature.getId();
     }
 
-    @GetMapping("{featureId}")
+    @GetMapping("/products/{productId}/features/{featureId}")
     public String getFeature(@AuthenticationPrincipal User user, ModelMap model, @PathVariable Long featureId)
     {
         Optional<Feature> featureOpt = featureService.findById(featureId);
@@ -55,7 +57,7 @@ public class FeatureController
         return "feature";
     }
 
-    @PostMapping("{featureId}")
+    @PostMapping("/products/{productId}/features/{featureId}")
     public String updateFeature(@AuthenticationPrincipal User user, Feature feature, @PathVariable Long productId, @PathVariable Long featureId)
     {
         feature.setUser(user);
@@ -64,7 +66,7 @@ public class FeatureController
         return "redirect:/products/" + productId + "/features/" + featureId;
     }
 
-    @PostMapping("{featureId}/status")
+    @PostMapping("/products/{productId}/features/{featureId}/status")
     public String setFeatureStatus(@AuthenticationPrincipal User user, @PathVariable Long productId, @PathVariable Long featureId, @RequestParam(value = "status") String status)
     {
         Optional<Feature> featureOpt = featureService.findById(featureId);
@@ -100,5 +102,22 @@ public class FeatureController
             }      
         }
         return comments;
+    }
+
+    @PostMapping("p/{productId}/{featureId}/delete")
+    public String deleteFeature(@AuthenticationPrincipal User user, @PathVariable Long productId, @PathVariable Long featureId)
+    {
+        Optional<Feature> featureOpt = featureService.findById(featureId);
+        if(featureOpt.isPresent())
+        {
+            Feature feature = featureOpt.get();
+            if(user.getId() == feature.getUser().getId())
+            {
+                upvoteRepo.deleteAllByFeatureId(featureId);
+                featureService.deleteById(featureId);
+            }
+            return "redirect:/p/" + productId;
+        }    
+        return "redirect:/dashboard";
     }
 }

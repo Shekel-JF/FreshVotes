@@ -53,6 +53,11 @@ public class FeatureService
         return featureRepo.findById(featureId);
     }
 
+    public void deleteById(Long featureId)
+    {
+        featureRepo.deleteById(featureId);
+    }
+
     public Long countUpvotesForFeature(Long featureId)
     {
         return featureRepo.countUpvotesForFeature(featureId);

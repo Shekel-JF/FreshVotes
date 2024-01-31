@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.freshvotes.domain.Feature;
 import com.freshvotes.domain.Product;
 import com.freshvotes.domain.User;
 import com.freshvotes.repositories.ProductRepository;
-
+import com.freshvotes.repositories.UpvoteRepository;
+import com.freshvotes.service.FeatureService;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -27,16 +29,25 @@ public class ProductController
 {
     @Autowired
     private ProductRepository productRepo;
+
+    @Autowired
+    private FeatureService featureService;
+
+    @Autowired
+    private UpvoteRepository upvoteRepo;
     
     @GetMapping("/products/{productId}")
-    public String getProduct(@PathVariable Long productId, ModelMap model, HttpServletResponse response) throws IOException
+    public String getProduct(@AuthenticationPrincipal User user, @PathVariable Long productId, ModelMap model, HttpServletResponse response) throws IOException
     {
         Optional<Product> productOpt = productRepo.findById(productId);
 
         if(productOpt.isPresent())
         {
             Product product = productOpt.get();
-            model.put("product", product);
+            if(checkProductOwnership(user, product))
+            {
+                model.put("product", product);
+            }        
         }
         else
         {
@@ -58,31 +69,51 @@ public class ProductController
     }
 
     @PostMapping("/products/{productId}")
-    public String saveProduct(@PathVariable Long productId, Product product)
+    public String saveProduct(@AuthenticationPrincipal User user, @PathVariable Long productId, Product product)
     {
-        product = productRepo.save(product);
-        return "redirect:/products/" + product.getId();
+        if(checkProductOwnership(user, product))
+        {
+            product = productRepo.save(product);
+        }        
+        return "redirect:/products/" + productId;
     }
 
     @PostMapping("/products/delete")
-    public String deleteProduct(@RequestParam Long productId)
+    public String deleteProduct(@AuthenticationPrincipal User user, @RequestParam Long productId)
     {
-        productRepo.deleteById(productId);
+        Optional<Product> productOpt = productRepo.findById(productId);
+        if(productOpt.isPresent())
+        {
+            Product product = productOpt.get();
+            if(checkProductOwnership(user, product))
+            {
+                productRepo.deleteById(productId);
+            }   
+        }
         return "redirect:/dashboard";
     }
     
-    @GetMapping("p/{productName}")
-    public String productUserView(@PathVariable String productName, ModelMap model) throws UnsupportedEncodingException
+    @GetMapping("p/{productId}")
+    public String productUserView(@AuthenticationPrincipal User user, @PathVariable Long productId, ModelMap model) throws UnsupportedEncodingException
     {
-        if(productName != null)
+        if(productId != null)
         {
-                Optional<Product> productOpt = productRepo.findByName(productName);
-
-                if(productOpt.isPresent())
+            Optional<Product> productOpt = productRepo.findById(productId);
+            if(productOpt.isPresent())
+            {
+                Product product = productOpt.get();
+                if(checkProductOwnership(user, product) || product.getPublished())
                 {
-                    model.put("product", productOpt.get());
-                }
+                    model.put("product", product);
+                    model.put("user", user);
+                }        
+            }
         }
         return "productUserView";  
     } 
+
+    public Boolean checkProductOwnership(@AuthenticationPrincipal User user, Product product)
+    {
+        return product.getUser().getId() == user.getId();
+    }  
 }
