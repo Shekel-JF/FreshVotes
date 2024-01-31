@@ -30,12 +30,37 @@
                 }
             }
         </script>
+        <!--
+            <style>
+            input[type=checkbox]
+            {
+                display: none;
+            }
+            .label
+            {
+                border: 1px solid #000;
+                display: inline-block;
+                padding: 3px;
+                /* background: url("unchecked.png") no-repeat left center; */ 
+                /* padding-left: 15px; */
+            }
+                input[type=checkbox]:checked + .label {
+                background: #f00;
+                color: #fff;
+                /* background-image: url("checked.png"); */
+            }
+        </style>
+        -->
+
     </head>
     <body>
         <form th:action="@{/products/{productId}/features/{featureId}/votes(productId=${feature.product.id},featureId=${feature.id})}" method="post" th:id="voting">
             <div class="form-check">                                        
                 <input class="form-check-input" type="checkbox" id="vote" th:name="upvote" th:checked="${upvote}" onclick="updateCheckboxes(this, document.getElementById('downvote'))">
                 <label class="form-check-label" for="vote">
+                    <span class="checkbox-icon-wrapper">
+                        <span class="checkbox-icon glyphicon glyphicon-ok"></span>
+                    </span>
                     upvote
                 </label>
             </div>
