@@ -42,10 +42,11 @@
                     
                     
                     <div th:each="feature: ${product.features}">
-                        <div class="card">
+                        <div class="card mb-3">
                             <div class="card-body">
                                 <a th:href="@{/products/{productId}/features/{featureId}(productId=${product.id},featureId=${feature.id})}" class="stretched-link"></a>
-                                <h5 class="card-title text-center" th:text="${feature.title}"></h5>
+                                <h5 class="card-title text-center" th:text="${feature.title}" style="font-size:24px; font-weight: bolder;"></h5>
+                                <h6 class="card-subtitle mb-2 text-muted" style="font-size:14px">description</h6>
                                 <p class="card-text" th:text="${feature.description}"></p>
                                 <div th:if="${feature.user.id} == ${user.id}">
                                     <form th:action="@{/p/{productId}/{featureId}/delete(productId=${product.id},featureId=${feature.id})}" method="post">

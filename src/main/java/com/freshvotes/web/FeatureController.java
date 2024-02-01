@@ -30,10 +30,11 @@ public class FeatureController
     @Autowired
     private UpvoteRepository upvoteRepo;
 
-    @PostMapping("")
+    @PostMapping("/products/{productId}/features")
     public String createFeature(@AuthenticationPrincipal User user, @PathVariable long productId)
     {
         Feature feature = featureService.createFeature(productId, user);
+        System.out.println(feature.getId() + "======================");
         return "redirect:/products/" + productId + "/features/" + feature.getId();
     }
 

@@ -14,12 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.freshvotes.domain.Feature;
 import com.freshvotes.domain.Product;
 import com.freshvotes.domain.User;
 import com.freshvotes.repositories.ProductRepository;
-import com.freshvotes.repositories.UpvoteRepository;
-import com.freshvotes.service.FeatureService;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -29,12 +26,6 @@ public class ProductController
 {
     @Autowired
     private ProductRepository productRepo;
-
-    @Autowired
-    private FeatureService featureService;
-
-    @Autowired
-    private UpvoteRepository upvoteRepo;
     
     @GetMapping("/products/{productId}")
     public String getProduct(@AuthenticationPrincipal User user, @PathVariable Long productId, ModelMap model, HttpServletResponse response) throws IOException
