@@ -17,17 +17,16 @@ import com.freshvotes.domain.Feature;
 import com.freshvotes.domain.Product;
 import com.freshvotes.domain.User;
 import com.freshvotes.repositories.FeatureRepository;
-import com.freshvotes.repositories.ProductRepository;
 import com.freshvotes.repositories.UpvoteRepository;
 
 @Service
 public class FeatureService
 {
     @Autowired
-    private ProductRepository productRepo;
+    private FeatureRepository featureRepo;
 
     @Autowired
-    private FeatureRepository featureRepo;
+    private ProductService productService;
 
     @Autowired
     private UpvoteRepository upvoteRepo;
@@ -36,7 +35,7 @@ public class FeatureService
     {
         Feature feature = new Feature();
 
-        Optional<Product> productOpt = productRepo.findById(productId);
+        Optional<Product> productOpt = productService.findById(productId);
 
         if(productOpt.isPresent())
         {
@@ -125,8 +124,6 @@ public class FeatureService
     {
         return featureRepo.countUpvotesForFeature(featureId);
     }
-
-
 
     private Set<Comment> getCommentsWithoutDuplicates(int page, Set<Long> visitedComments, Set<Comment> comments)
     {
