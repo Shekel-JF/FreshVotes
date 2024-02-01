@@ -1,13 +1,13 @@
 <html xmlns:th="http://thymeleaf.org">
     <body>
         <div th:fragment="commentThread" th:remove="tag">
-            <div th:each="comment : ${thread}" style="margin-left: 2em">
+            <div th:each="comment : ${thread}" th:style="${comment.comment != null ? 'margin-left: 2em;' : ''}">
                 <div class="d-flex" style="font-size:20px;">
                     <strong>[[${comment.user.name}]]</strong>
                     <div class="ms-auto" style="font-size:14px;">
                         [[${#dates.format(comment.createDate, 'dd.MM.yyyy HH:mm')}]]
                     </div>
-                     
+
                 </div>
                 <div style="margin-top: 8px; margin-bottom: 16px">
                     <span th:text="${comment.text}" style="word-wrap: break-word;"></span>
