@@ -28,7 +28,6 @@ public class Feature
     private Product product;
     private User user;
     private Set<Comment> comments = new TreeSet<>();
-    private Long upvoteCount;
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Long getId()
@@ -99,15 +98,4 @@ public class Feature
     {
         this.comments = comments;
     }
-
-    public Long getUpvoteCount()
-    {
-        return this.upvoteCount;
-    }
-
-    public void setUpvoteCount(Long upvoteCount)
-    {
-        this.upvoteCount = upvoteCount;
-    }
-
 }
