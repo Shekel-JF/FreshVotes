@@ -5,11 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.freshvotes.domain.Comment;
 import com.freshvotes.domain.Feature;
@@ -25,9 +22,9 @@ public class CommentService
     @Autowired
     public FeatureService featureService;
 
-    public void postComment(@AuthenticationPrincipal User user, Comment rootComment,
-    @PathVariable Long featureId, @PathVariable Long productId,
-    @RequestParam(required=false) Long parentId, @RequestParam(required=false) String childCommentText)
+    public void postComment(User user, Comment rootComment,
+    Long featureId, Long productId,
+    Long parentId, String childCommentText)
     {      
         Optional<Feature> featureOpt = featureService.findById(featureId);   
         
@@ -50,8 +47,8 @@ public class CommentService
         }     
     }
 
-    public void deleteComment(@AuthenticationPrincipal User user, @RequestParam Long commentId, 
-    @PathVariable Long featureId, @PathVariable Long productId)
+    public void deleteComment(User user, Long commentId, 
+    Long featureId, Long productId)
     {
         Optional<Comment> commentOpt = findById(commentId);
         if(commentOpt.isPresent())

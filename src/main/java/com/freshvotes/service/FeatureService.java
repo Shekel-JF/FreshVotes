@@ -6,11 +6,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.freshvotes.domain.Comment;
 import com.freshvotes.domain.Feature;
@@ -54,7 +51,7 @@ public class FeatureService
         return feature;
     }
 
-    public void getFeature(@AuthenticationPrincipal User user, ModelMap model, @PathVariable Long featureId)
+    public void getFeature(User user, ModelMap model, Long featureId)
     {
         Optional<Feature> featureOpt = findById(featureId);
         if(featureOpt.isPresent())
@@ -71,7 +68,7 @@ public class FeatureService
         // TODO what if no featureid present
     }
 
-    public void updateFeature(@AuthenticationPrincipal User user, Feature feature, @PathVariable Long productId, @PathVariable Long featureId)
+    public void updateFeature(User user, Feature feature, Long productId, Long featureId)
     {
         if(feature.getUser() == null || feature.getUser().getId() == user.getId())
         {
@@ -80,7 +77,7 @@ public class FeatureService
         }
     }
 
-    public void setFeatureStatus(@AuthenticationPrincipal User user, @PathVariable Long productId, @PathVariable Long featureId, @RequestParam(value = "status") String status)
+    public void setFeatureStatus(User user, Long productId, Long featureId, String status)
     {
         Optional<Feature> featureOpt = findById(featureId);
         if(featureOpt.isPresent())
@@ -91,7 +88,7 @@ public class FeatureService
         }
     }
 
-    public void deleteFeature(@AuthenticationPrincipal User user, @PathVariable Long productId, @PathVariable Long featureId)
+    public void deleteFeature(User user, Long productId, Long featureId)
     {
         Optional<Feature> featureOpt = findById(featureId);
         if(featureOpt.isPresent())

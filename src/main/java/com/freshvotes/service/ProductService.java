@@ -6,11 +6,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.freshvotes.domain.Product;
 import com.freshvotes.domain.User;
@@ -24,7 +21,7 @@ public class ProductService
     @Autowired
     private ProductRepository productRepo;
 
-    public void getProduct(@AuthenticationPrincipal User user, @PathVariable Long productId, ModelMap model, HttpServletResponse response) throws IOException
+    public void getProduct(User user, Long productId, ModelMap model, HttpServletResponse response) throws IOException
     {
         Optional<Product> productOpt = findById(productId);
 
@@ -42,7 +39,7 @@ public class ProductService
         }
     }
 
-    public Product createProduct(@AuthenticationPrincipal User user)
+    public Product createProduct(User user)
     {
         Product product = new Product();
         product.setPublished(false);
@@ -52,7 +49,7 @@ public class ProductService
         return product;
     }
 
-    public void saveProduct(@AuthenticationPrincipal User user, @PathVariable Long productId, Product product)
+    public void saveProduct(User user, Long productId, Product product)
     {
         if(checkProductOwnership(user, product))
         {
@@ -60,7 +57,7 @@ public class ProductService
         }        
     }
 
-    public void deleteProduct(@AuthenticationPrincipal User user, @RequestParam Long productId)
+    public void deleteProduct(User user, Long productId)
     {
         Optional<Product> productOpt = findById(productId);
         if(productOpt.isPresent())
@@ -73,7 +70,7 @@ public class ProductService
         }
     }
 
-    public void getProductUserView(@AuthenticationPrincipal User user, @PathVariable Long productId, ModelMap model) throws UnsupportedEncodingException
+    public void getProductUserView(User user, Long productId, ModelMap model) throws UnsupportedEncodingException
     {
         if(productId != null)
         {
@@ -105,7 +102,7 @@ public class ProductService
         productRepo.deleteById(ProductId);
     }
 
-    public Boolean checkProductOwnership(@AuthenticationPrincipal User user, Product product)
+    public Boolean checkProductOwnership(User user, Product product)
     {
         return product.getUser().getId() == user.getId();
     }  
