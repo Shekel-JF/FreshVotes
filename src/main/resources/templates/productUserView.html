@@ -2,7 +2,6 @@
 <html xmlns:th="http://thymeLeaf.org" data-bs-theme="dark">
     <head>
         <div th:insert="~{fragments/header :: headerElement}"></div>
-        <title th:text="${product.name}">FreshVotes products</title>
     </head>
     <body>
         <style>
@@ -12,7 +11,7 @@
         }
 
         </style>
-        <div class="container">
+        <div th:if="${product}!=null" class="container">
             <div th:insert="~{fragments/header :: header}"></div>
             <div class="row">
                 <div style="height: 50px;">

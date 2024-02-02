@@ -1,7 +1,6 @@
 package com.freshvotes.service;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,7 @@ public class ProductService
         }
         else
         {
-            response.sendError(HttpStatus.NOT_FOUND.value(), "Product with id " + productId + " was not found.");
+            response.sendError(HttpStatus.NOT_FOUND.value(), "Product with id = " + productId + " was not found.");
         }
     }
 
@@ -70,7 +69,7 @@ public class ProductService
         }
     }
 
-    public void getProductUserView(User user, Long productId, ModelMap model) throws UnsupportedEncodingException
+    public void getProductUserView(User user, Long productId, ModelMap model, HttpServletResponse response) throws IOException
     {
         if(productId != null)
         {
@@ -83,6 +82,10 @@ public class ProductService
                     model.put("product", product);
                     model.put("user", user);
                 }        
+            }
+            else
+            {
+                response.sendError(HttpStatus.NOT_FOUND.value(), "Product with id = " + productId + " was not found.");
             }
         }
     }

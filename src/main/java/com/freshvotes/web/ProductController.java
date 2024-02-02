@@ -1,7 +1,6 @@
 package com.freshvotes.web;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -54,9 +53,9 @@ public class ProductController
     }
     
     @GetMapping("p/{productId}")
-    public String getProductUserView(@AuthenticationPrincipal User user, @PathVariable Long productId, ModelMap model) throws UnsupportedEncodingException
+    public String getProductUserView(@AuthenticationPrincipal User user, @PathVariable Long productId, ModelMap model, HttpServletResponse response) throws IOException
     {
-        productService.getProductUserView(user, productId, model);
+        productService.getProductUserView(user, productId, model, response);
         return "productUserView";  
     } 
 }

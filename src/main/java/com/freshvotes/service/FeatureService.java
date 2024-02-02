@@ -1,11 +1,13 @@
 package com.freshvotes.service;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
@@ -15,6 +17,8 @@ import com.freshvotes.domain.Product;
 import com.freshvotes.domain.User;
 import com.freshvotes.repositories.FeatureRepository;
 import com.freshvotes.repositories.UpvoteRepository;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @Service
 public class FeatureService
@@ -51,7 +55,7 @@ public class FeatureService
         return feature;
     }
 
-    public void getFeature(User user, ModelMap model, Long featureId)
+    public void getFeature(User user, ModelMap model, Long featureId, HttpServletResponse response) throws IOException
     {
         Optional<Feature> featureOpt = findById(featureId);
         if(featureOpt.isPresent())
@@ -63,7 +67,10 @@ public class FeatureService
             model.put("thread", commentsWithoutDuplicates);
             model.put("rootComment", new Comment());
         }
-
+        else
+        {
+            response.sendError(HttpStatus.NOT_FOUND.value(), "Feature with id = " + featureId + " was not found.");
+        }
         model.put("user", user);      
         // TODO what if no featureid present
     }

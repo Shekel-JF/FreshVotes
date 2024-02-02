@@ -1,5 +1,7 @@
 package com.freshvotes.web;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.freshvotes.domain.Feature;
 import com.freshvotes.domain.User;
 import com.freshvotes.service.FeatureService;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 
 @Controller
@@ -28,9 +32,9 @@ public class FeatureController
     }
 
     @GetMapping("/products/{productId}/features/{featureId}")
-    public String getFeature(@AuthenticationPrincipal User user, ModelMap model, @PathVariable Long featureId)
+    public String getFeature(@AuthenticationPrincipal User user, ModelMap model, @PathVariable Long featureId, HttpServletResponse response) throws IOException
     {
-        featureService.getFeature(user, model, featureId);
+        featureService.getFeature(user, model, featureId, response);
         return "feature";
     }
 
