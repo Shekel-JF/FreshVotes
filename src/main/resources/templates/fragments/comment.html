@@ -15,17 +15,15 @@
                 
                 <div class="d-flex">              
                     <button class="btn btn-outline-secondary btn-sm"  th:id="|replyBtn-${comment.id}|">reply</button>
-                     
-                    <div class="ms-auto" th:if="${comment.user.id} == ${user.id}">
-                        <button type="submit" class="btn btn-outline-danger btn-sm" form="deleteComment">delete</button>
-                    </div>
-                    
-                    <div th:if="${comment.user.id == user.id}">
-                        <form th:action="@{/products/{productId}/features/{featureId}/comments/delete(productId=${feature.product.id},featureId=${feature.id})}" method="post" id="deleteComment">
-                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                            <input type="hidden" th:name="commentId" th:value="${comment.id}"/>
-                            <input type="hidden" th:name="productId" th:value="${comment.feature.product.id}"/>
-                        </form>
+                    <div class="ms-auto">
+                        <div th:if="${comment.user.id == user.id}">
+                            <form th:action="@{/products/{productId}/features/{featureId}/comments/delete(productId=${feature.product.id},featureId=${feature.id})}" method="post">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                <input type="hidden" th:name="commentId" th:value="${comment.id}"/>
+                                <input type="hidden" th:name="productId" th:value="${comment.feature.product.id}"/>
+                                <button type="submit" class="btn btn-outline-danger btn-sm ms-auto">delete</button>        
+                            </form>
+                        </div>
                     </div>
                 </div>
 
