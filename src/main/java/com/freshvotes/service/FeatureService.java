@@ -16,7 +16,7 @@ import com.freshvotes.domain.Feature;
 import com.freshvotes.domain.Product;
 import com.freshvotes.domain.User;
 import com.freshvotes.repositories.FeatureRepository;
-import com.freshvotes.repositories.UpvoteRepository;
+import com.freshvotes.repositories.VoteRepository;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -27,10 +27,11 @@ public class FeatureService
     private FeatureRepository featureRepo;
 
     @Autowired
-    private ProductService productService;
+    private VoteRepository voteRepo;
 
     @Autowired
-    private UpvoteRepository upvoteRepo;
+    private ProductService productService;
+
 
     public Feature createFeature(Long productId, User user)
     {
@@ -103,7 +104,7 @@ public class FeatureService
             Feature feature = featureOpt.get();
             if(user.getId() == feature.getUser().getId())
             {
-                upvoteRepo.deleteAllByFeatureId(featureId);
+                voteRepo.deleteAllByFeatureId(featureId);
                 deleteById(featureId);
             }
         }    

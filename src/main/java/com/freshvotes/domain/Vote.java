@@ -1,10 +1,8 @@
 package com.freshvotes.domain;
 
-
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
-
 
 @Entity
 public class Vote
@@ -22,9 +20,6 @@ public class Vote
         this.pk = pk;
     }
 
-
-
-
     public Boolean isUpvote()
     {
         return this.upvote;
@@ -40,6 +35,4 @@ public class Vote
     {
         this.upvote = upvote;
     }
-
-
 }

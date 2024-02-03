@@ -20,7 +20,7 @@ public class CommentService
     public CommentRepository commentRepo;
 
     @Autowired
-    public FeatureService featureService;
+    private FeatureService featureService;
 
     public void postComment(User user, Comment rootComment,
     Long featureId, Long productId,
@@ -90,6 +90,4 @@ public class CommentService
     {
         commentRepo.deleteById(commentId);
     }
-
-    
 }

@@ -14,7 +14,7 @@ import com.freshvotes.domain.Vote;
 import com.freshvotes.domain.VoteId;
 
 
-public interface UpvoteRepository extends JpaRepository<Vote, VoteId>
+public interface VoteRepository extends JpaRepository<Vote, VoteId>
 {
     Optional<Vote> findByPkUserAndPkFeature(User user, Feature feature);
     
@@ -22,5 +22,4 @@ public interface UpvoteRepository extends JpaRepository<Vote, VoteId>
     @Modifying
     @Query("DELETE FROM Vote v WHERE v.pk.feature.id = :featureId")
     void deleteAllByFeatureId(@Param("featureId") Long featureId);
-
 }
