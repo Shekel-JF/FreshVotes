@@ -1,6 +1,7 @@
 package com.freshvotes.service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,9 +96,19 @@ public class ProductService
         return productRepo.save(product);
     }
 
-        public Optional<Product> findById(Long productId)
+    public Optional<Product> findById(Long productId)
     {
         return productRepo.findById(productId);
+    }
+
+    public List<Product> findByUser(User user)
+    {
+        return productRepo.findByUser(user);
+    }
+
+    public List<Product> findByUpvotes()
+    {
+        return productRepo.findByUpvotes();
     }
 
     public void deleteById(Long ProductId)
