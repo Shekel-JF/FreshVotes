@@ -20,7 +20,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>
     "ON p.id = uf.productId " +
     "GROUP BY p.id, p.name, p.published, p.user, COALESCE(uf.total_upvotes, 0) " +
     "ORDER BY COALESCE(uf.total_upvotes, 0) DESC " +
-    "LIMIT 36")
+    "LIMIT 12")
     List<Product> findByUpvotes();
     Optional<Product> findByName(String name);
 }

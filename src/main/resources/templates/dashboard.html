@@ -3,6 +3,12 @@
 <head>
     <div th:insert="~{fragments/header :: headerElement}"></div>
     <title>FreshVotes Dashboard</title>
+    <style>
+        .carousel-indicators
+        {
+            bottom: -60px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -30,8 +36,10 @@
 
         <div th:if="${popularProducts != null}">
             <div id="ProductsCarousel" class="carousel slide mb-3">
+
                 <div class="carousel-inner">
                     <div th:each="productSlide, innerStatus : ${popularProducts}" th:class="${innerStatus.index == 0} ? 'carousel-item active' : 'carousel-item'">
+
                         <div class="row">
                             <div th:each="product : ${productSlide}" class="col-6 mx-auto">
                                 <div class="card">
@@ -58,14 +66,22 @@
                             </div>
                         </div>
                     </div>
- 
-                </div>              
+                    
+                </div>
+                <div th:if="${popularProducts.size() > 1}" class="carousel-indicators">
+                    <button 
+                        th:each="productSlide, slideIndex : ${popularProducts}" type="button" data-bs-target="#ProductsCarousel" th:data-bs-slide-to="${slideIndex.index}" 
+                        th:class="${slideIndex.index == 0} ? 'active' : ''" th:aria-label="'Slide ' + ${slideIndex.index + 1}" style="background-color: grey; height: 6px;">
+                    </button>
+                </div>
+        
             </div>
+
             <div>
+
                 <legend style="font-size:32px; margin-top: 80px;">Your Products</legend>                
             </div>
         </div>
-
         <div th:if="${userProducts != null}" class="row">
             <div th:each="product : ${userProducts}" class="col-lg-4 col-sm-6 col-6 mb-3">
                 <div class="card">
@@ -94,5 +110,6 @@
             </div>   
         </div>
     </div>
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=">
 </body>
 </html>
