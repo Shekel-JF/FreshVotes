@@ -1,6 +1,8 @@
 package com.freshvotes.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -91,6 +93,48 @@ public class ProductService
         }
     }
 
+    public void putNewProductLists(ModelMap model)
+    {
+        List<Product> newProducts = findNew();
+        List<List<Product>> newProductLists = new ArrayList<>();
+        
+        for(int i = 0; i < newProducts.size(); i+=2)
+        {
+            {
+                if(i + 1 < newProducts.size())
+                {
+                    newProductLists.add(Arrays.asList(newProducts.get(i), newProducts.get(i+1)));
+                }
+                else
+                {
+                    newProductLists.add(Arrays.asList(newProducts.get(i)));
+                }    
+            }
+        }
+        model.put("newProducts", newProductLists);
+    }
+
+    public void putPopularProductLists(ModelMap model)
+    {
+        List<Product> popularProducts = findByUpvotes();
+        List<List<Product>> productLists = new ArrayList<>();
+        for(int i = 0; i < popularProducts.size(); i+=2)
+        {
+            {
+                if(i + 1 < popularProducts.size())
+                {
+                    productLists.add(Arrays.asList(popularProducts.get(i), popularProducts.get(i+1)));
+                }
+                else
+                {
+                    productLists.add(Arrays.asList(popularProducts.get(i)));
+                }
+                
+            }
+        }     
+        model.put("popularProducts", productLists);
+    }
+
     public Product save(Product product)
     {
         return productRepo.save(product);
@@ -109,6 +153,10 @@ public class ProductService
     public List<Product> findByUpvotes()
     {
         return productRepo.findByUpvotes();
+    }
+    public List<Product> findNew()
+    {
+        return productRepo.findNew();
     }
 
     public void deleteById(Long ProductId)

@@ -3,12 +3,6 @@
 <head>
     <div th:insert="~{fragments/header :: headerElement}"></div>
     <title>FreshVotes Dashboard</title>
-    <style>
-        .carousel-indicators
-        {
-            bottom: -60px;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -27,65 +21,62 @@
                     </fieldset>
                 </form>
             </div>
-
         </div>
         
-        <div class="row">
-            <legend style="font-size:32px">Popular Products</legend>                
-        </div>
-
         <div th:if="${popularProducts != null}">
-            <div id="ProductsCarousel" class="carousel slide mb-3">
-
+            <div class="row">
+                <legend style="font-size:32px">Popular Products</legend>                
+            </div>
+            <div id="popularProductsCarousel" class="carousel slide mb-3">
                 <div class="carousel-inner">
                     <div th:each="productSlide, innerStatus : ${popularProducts}" th:class="${innerStatus.index == 0} ? 'carousel-item active' : 'carousel-item'">
-
                         <div class="row">
                             <div th:each="product : ${productSlide}" class="col-6 mx-auto">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title" th:text="${product.name}"></h5>
-                                        <form th:action="@{/products/delete}" method="post">
-                                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                                            <input type="hidden" th:name="productId" th:value="${product.id}"/>
-                                            <button type="submit" class="btn-close position-absolute top-0 end-0 me-2 mt-2" style="--bs-btn-padding-y: .4rem; --bs-btn-padding-x: 0.8rem; --bs-btn-font-size: 0.8rem;"></button>
-                                        </form>
-                                    </div>
-                                    <div class="card-footer bg-transparent border-0">                  
-                                        <div class="btn-group align-items-end" role="group" aria-label="Product Actions">
-                                            <form th:action="@{/p/{productId}(productId=${product.id})}" method="get">
-                                                <button type="submit" class="btn btn-outline-info me-2 d-none d-sm-block" style="--bs-btn-padding-y: .4rem; --bs-btn-padding-x: 0.8rem; --bs-btn-font-size: 0.8rem;" th:text="'show requests'"></button>
-                                                <button type="submit" class="btn btn-outline-info me-2 d-sm-none" style="--bs-btn-padding-y: .4rem; --bs-btn-padding-x: 0.8rem; --bs-btn-font-size: 0.8rem;" th:text="'requests'"></button>
-                                            </form>
-                                            <form th:action="@{/products/{productId}(productId=${product.id})}" method="get">
-                                                <button type="submit" class="btn btn-outline-info me-2" style="--bs-btn-padding-y: .4rem; --bs-btn-padding-x: 0.8rem; --bs-btn-font-size: 0.8rem;" th:text="edit"></button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div th:insert="~{fragments/productCard :: product-card}"></div>
                             </div>
                         </div>
                     </div>
-                    
                 </div>
                 <div th:if="${popularProducts.size() > 1}" class="carousel-indicators">
                     <button 
-                        th:each="productSlide, slideIndex : ${popularProducts}" type="button" data-bs-target="#ProductsCarousel" th:data-bs-slide-to="${slideIndex.index}" 
+                        th:each="productSlide, slideIndex : ${popularProducts}" type="button" data-bs-target="#popularProductsCarousel" th:data-bs-slide-to="${slideIndex.index}" 
+                        th:class="${slideIndex.index == 0} ? 'active' : ''" th:aria-label="'Slide ' + ${slideIndex.index + 1}" style="background-color: grey; height: 6px;">
+                    </button>
+                </div>   
+            </div>
+        </div>
+
+        <div th:if="${newProducts != null}">
+            <div class="row">
+                <legend style="font-size:32px; margin-top: 64px;">New Products</legend>                
+            </div>
+            <div id="newProductsCarousel" class="carousel slide mb-3">
+                <div class="carousel-inner">
+                    <div th:each="productSlide, innerStatus : ${newProducts}" th:class="${innerStatus.index == 0} ? 'carousel-item active' : 'carousel-item'">
+                        <div class="row">
+                            <div th:each="product : ${productSlide}" class="col-6 mx-auto">
+                                <div th:insert="~{fragments/productCard :: product-card}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${newProducts.size() > 1}" class="carousel-indicators">
+                    <button 
+                        th:each="productSlide, slideIndex : ${newProducts}" type="button" data-bs-target="#newProductsCarousel" th:data-bs-slide-to="${slideIndex.index}" 
                         th:class="${slideIndex.index == 0} ? 'active' : ''" th:aria-label="'Slide ' + ${slideIndex.index + 1}" style="background-color: grey; height: 6px;">
                     </button>
                 </div>
-        
-            </div>
-
-            <div>
-
-                <legend style="font-size:32px; margin-top: 80px;">Your Products</legend>                
             </div>
         </div>
+        
         <div th:if="${userProducts != null}" class="row">
+            <div>
+                <legend style="font-size:32px; margin-top: 80px;">Your Products</legend>                
+            </div>
             <div th:each="product : ${userProducts}" class="col-lg-4 col-sm-6 col-6 mb-3">
                 <div class="card">
                     <div class="card-body">
+                        <a th:href="@{/p/{productId}(productId=${product.id})}" class="stretched-link"></a>
                         <h5 class="card-title" th:text="${product.name}"></h5>
                         <h6 class="card-subtitle mb-2 text-muted" style="font-size:14px" th:text="${product.published ? 'public' : 'private'}"></h6>
                         <form th:action="@{/products/delete}" method="post">
@@ -94,15 +85,10 @@
                             <button type="submit" class="btn-close position-absolute top-0 end-0 me-2 mt-2" style="--bs-btn-padding-y: .4rem; --bs-btn-padding-x: 0.8rem; --bs-btn-font-size: 0.8rem;"></button>
                         </form>
                     </div>
-
                     <div class="card-footer bg-transparent border-0">                  
-                        <div class="btn-group align-items-end" role="group" aria-label="Product Actions">
-                            <form th:action="@{/p/{productId}(productId=${product.id})}" method="get">
-                                <button type="submit" class="btn btn-outline-info me-2 d-none d-sm-block" style="--bs-btn-padding-y: .4rem; --bs-btn-padding-x: 0.8rem; --bs-btn-font-size: 0.8rem;" th:text="'show requests'"></button>
-                                <button type="submit" class="btn btn-outline-info me-2 d-sm-none" style="--bs-btn-padding-y: .4rem; --bs-btn-padding-x: 0.8rem; --bs-btn-font-size: 0.8rem;" th:text="'requests'"></button>
-                            </form>
+                        <div class="text-end">
                             <form th:action="@{/products/{productId}(productId=${product.id})}" method="get">
-                                <button type="submit" class="btn btn-outline-info me-2" style="--bs-btn-padding-y: .4rem; --bs-btn-padding-x: 0.8rem; --bs-btn-font-size: 0.8rem;" th:text="edit"></button>
+                                <button type="submit" class="btn btn-outline-info" style="border-color: rgb(204, 204, 204); color: rgb(204, 204, 204); --bs-btn-padding-y: .4rem; --bs-btn-padding-x: 0.8rem; --bs-btn-font-size: 0.8rem;" th:text="edit"></button>
                             </form>
                         </div>
                     </div>
@@ -110,6 +96,5 @@
             </div>   
         </div>
     </div>
-    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=">
 </body>
 </html>

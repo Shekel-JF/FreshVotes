@@ -4,13 +4,6 @@
         <div th:insert="~{fragments/header :: headerElement}"></div>
     </head>
     <body>
-        <style>
-        .card .btn-close
-        {
-            z-index: 1;
-        }
-
-        </style>
         <div th:if="${product}!=null" class="container">
             <div th:insert="~{fragments/header :: header}"></div>
             <div class="row">
@@ -37,8 +30,7 @@
                         <div style="font-size:24px; margin-top:50px" th:if="${product.features.isEmpty == false}">
                             <span>Feature requests</span>
                         </div>             
-                    </div>
-                    
+                    </div>                 
                     
                     <div th:each="feature: ${product.features}">
                         <div class="card mb-3">
