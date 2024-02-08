@@ -39,6 +39,7 @@ public class Feature
         this.id = id;
     }
 
+    @Column(length = 128)
     public String getTitle()
     {
         return this.title;

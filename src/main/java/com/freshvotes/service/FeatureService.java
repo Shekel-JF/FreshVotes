@@ -3,6 +3,7 @@ package com.freshvotes.service;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -118,6 +119,11 @@ public class FeatureService
     public Optional<Feature> findById(Long featureId)
     {
         return featureRepo.findById(featureId);
+    }
+
+    public List<Feature> findNew(Long productId)
+    {
+        return featureRepo.findNew(productId);
     }
 
     public void deleteById(Long featureId)

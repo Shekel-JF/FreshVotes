@@ -26,9 +26,8 @@ public class DashboardController
     {
         model.put("userProducts", productService.findByUser(user));
         model.put("user", user);
-        productService.putPopularProductLists(model);
-        
-        productService.putNewProductLists(model);
+        productService.putGroupedLists(model, productService.findByUpvotes(), "popularProducts");  
+        productService.putGroupedLists(model, productService.findNew(), "newProducts");
 
         return "dashboard";
     }

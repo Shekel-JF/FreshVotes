@@ -15,7 +15,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>
 
     Optional<Product> findByName(String name);
 
-    @Query("Select p From Product p WHERE p.published = true ORDER BY p.id DESC")
+    @Query("Select p FROM Product p WHERE p.published = true ORDER BY p.id DESC LIMIT 15")
     List<Product> findNew();
 
     @Query("SELECT p FROM Product p " +

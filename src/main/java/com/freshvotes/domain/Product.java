@@ -1,9 +1,10 @@
 package com.freshvotes.domain;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +19,7 @@ public class Product
     private Long id;
     private String name;
     private User user;
-    private Set<Feature> features= new HashSet<>();
+    private List<Feature> features= new ArrayList<>();
     private Boolean published;
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -31,6 +32,7 @@ public class Product
         this.id = id;
     }
 
+    @Column(length = 64)
     public String getName()
     {
         return this.name;
@@ -51,11 +53,11 @@ public class Product
     }
 
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="product")
-    public Set<Feature> getFeatures()
+    public List<Feature> getFeatures()
     {
         return this.features;
     }
-    public void setFeatures(Set<Feature> features)
+    public void setFeatures(List<Feature> features)
     {
         this.features = features;
     }
