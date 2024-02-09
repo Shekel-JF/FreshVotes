@@ -13,6 +13,9 @@ public interface FeatureRepository extends JpaRepository<Feature, Long>
     @Query("SELECT COUNT(v) FROM Vote v WHERE v.pk.feature.id = :featureId AND v.upvote = true")
     Long countUpvotesForFeature(Long featureId);
 
+    @Query("SELECT COUNT(v) FROM Vote v WHERE v.pk.feature.id = :featureId AND v.upvote = false")
+    Long countDownvotesForFeature(Long featureId);
+
     @Query("SELECT f FROM Feature f " +
     "WHERE f.product.id = :productId " +
     "ORDER BY f.id DESC LIMIT 14")

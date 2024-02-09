@@ -40,7 +40,8 @@ public class VoteService
                 Boolean empty = null;
                 model.put("upvote", empty);
             }   
-            model.put("upvoteSum", featureService.countUpvotesForFeature(featureId)); 
+            model.put("upvoteSum", featureService.countUpvotesForFeature(featureId));
+            model.put("downvoteSum", featureService.countDownvotesForFeature(featureId)); 
         }
         model.put("user", user);
     }

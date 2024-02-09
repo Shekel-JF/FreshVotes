@@ -135,6 +135,11 @@ public class FeatureService
     {
         return featureRepo.countUpvotesForFeature(featureId);
     }
+    
+    public Long countDownvotesForFeature(Long featureId)
+    {
+        return featureRepo.countDownvotesForFeature(featureId);
+    }
 
     private Set<Comment> getCommentsWithoutDuplicates(int page, Set<Long> visitedComments, Set<Comment> comments)
     {

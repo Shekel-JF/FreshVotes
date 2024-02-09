@@ -31,22 +31,36 @@
             }
         </script>
 
-
     </head>
     <body>
-        <form th:action="@{/products/{productId}/features/{featureId}/votes(productId=${feature.product.id},featureId=${feature.id})}" method="post" th:id="voting">
-            <div class="form-check">                                        
-                <input class="form-check-input" type="checkbox" id="vote" th:name="upvote" th:checked="${upvote}" onclick="updateCheckboxes(this, document.getElementById('downvote'))">
-                <label class="form-check-label" for="vote">
-                    <span class="rotate-90-right"></span>
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="downvote" th:name ="upvote" th:checked="${upvote} == false" th:value="${upvote} == false" onclick="updateCheckboxes(this, document.getElementById('vote'))">
-                <label class="form-check-label" for="downvote">
-                    <span class="rotate-90-left"></span>
-                </label>
-            </div>
-        </form>
+        <div class="card" style="height:60px; width: 360px;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4 text-center" >
+                        <span th:text="${upvoteSum}" style="font-size: 20px;" ></span>
+                    </div>
+                    <div class="col-4 text-center">                     
+                        <form th:action="@{/products/{productId}/features/{featureId}/votes(productId=${feature.product.id},featureId=${feature.id})}" method="post" th:id="voting">
+                            <div class="form-check">                                    
+                                <input class="form-check-input" type="checkbox" id="vote" th:name="upvote" th:checked="${upvote}" onclick="updateCheckboxes(this, document.getElementById('downvote'))">
+                                <label class="form-check-label" for="vote">             
+                                    <span class="rotate-90-right" ></span>
+                                </label>
+                            </div>
+                      
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="downvote" th:name="upvote" th:checked="${upvote} == false" th:value="${upvote} == false" onclick="updateCheckboxes(this, document.getElementById('vote'))">
+                                <label class="form-check-label" for="downvote">
+                                    <span class="rotate-90-left"></span>
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-4 text-center" style="font-size: 20px;">
+                        <span th:text="${downvoteSum}" ></span>
+                    </div>
+                </div>
+            </div>         
+        </div>
     </body>
 </html>

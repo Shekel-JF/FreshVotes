@@ -105,30 +105,46 @@
                             </div>
                         </div>
                     </div>
-      
-                    <iframe th:src="@{/products/{productId}/features/{featureId}/votes(productId=${feature.product.id},featureId=${feature.id})}" 
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-4">
+                    <div class="text-start">
+                        <iframe th:src="@{/products/{productId}/features/{featureId}/votes(productId=${feature.product.id},featureId=${feature.id})}" 
                         id="voting" 
                         name="voting" 
-                        style="visibility: hidden; margin-top: 2em; width: 160px; height: 80px;" 
-                        onload="this.style.visibility = 'visible';">
-                    </iframe>
-
-                    <div style="margin-bottom:2em">
-                        <h2>Comments</h2>
-                        <form th:action="@{/products/{productId}/features/{featureId}/comments(productId=${feature.product.id},featureId=${feature.id})}" method="post">
-                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-
-                            <div class="input-group mb-4">
-                                <textarea rows="4" th:field="${rootComment.text}" class="form-control" placeholder="leave a comment here"> </textarea>
-                            </div>
-                            <div class="text-end">
-                                <button type="submit" class="btn btn-outline-info" style="--bs-btn-padding-y: .6rem; --bs-btn-padding-x: 1.2rem; --bs-btn-font-size: 1.0rem;">submit</button>
-                            </div>
-                        </form>
-                        <hr/>
-                        <div th:replace="~{fragments/comment :: commentThread}"></div>
+                        style="visibility: hidden; margin-top: 2em; position:absolute; width:400px; height:80px;"  
+                        onload="this.style.visibility = 'visible';"
+                        scrolling="no"
+                        seamless="seamless">                     
+                        </iframe>
                     </div>
                 </div>
+            </div>
+
+            <div class="row">
+                <div class="col-1">
+                    
+                </div>
+                <div class="col-10" style="margin-bottom:20px; margin-top: 200px;">
+                    <h2>Comments</h2>
+                    <form th:action="@{/products/{productId}/features/{featureId}/comments(productId=${feature.product.id},featureId=${feature.id})}" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+                        <div class="input-group mb-4">
+                            <textarea rows="4" th:field="${rootComment.text}" class="form-control" placeholder="leave a comment here"> </textarea>
+                        </div>
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-outline-info" style="--bs-btn-padding-y: .6rem; --bs-btn-padding-x: 1.2rem; --bs-btn-font-size: 1.0rem;">submit</button>
+                        </div>
+                    </form>
+                    <hr/>
+                    <div th:replace="~{fragments/comment :: commentThread}"></div>
+                </div>
+            </div>
+
+                
             </div>
         </div>       
     </body>
