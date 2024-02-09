@@ -30,27 +30,7 @@
                 }
             }
         </script>
-        <!--
-            <style>
-            input[type=checkbox]
-            {
-                display: none;
-            }
-            .label
-            {
-                border: 1px solid #000;
-                display: inline-block;
-                padding: 3px;
-                /* background: url("unchecked.png") no-repeat left center; */ 
-                /* padding-left: 15px; */
-            }
-                input[type=checkbox]:checked + .label {
-                background: #f00;
-                color: #fff;
-                /* background-image: url("checked.png"); */
-            }
-        </style>
-        -->
+
 
     </head>
     <body>
@@ -58,16 +38,13 @@
             <div class="form-check">                                        
                 <input class="form-check-input" type="checkbox" id="vote" th:name="upvote" th:checked="${upvote}" onclick="updateCheckboxes(this, document.getElementById('downvote'))">
                 <label class="form-check-label" for="vote">
-                    <span class="checkbox-icon-wrapper">
-                        <span class="checkbox-icon glyphicon glyphicon-ok"></span>
-                    </span>
-                    upvote
+                    <span class="rotate-90-right"></span>
                 </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="downvote" th:name ="upvote" th:checked="${upvote} == false" th:value="${upvote} == false" onclick="updateCheckboxes(this, document.getElementById('vote'))">
                 <label class="form-check-label" for="downvote">
-                    downvote
+                    <span class="rotate-90-left"></span>
                 </label>
             </div>
         </form>
