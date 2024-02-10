@@ -30,10 +30,9 @@
                 }
             }
         </script>
-
     </head>
     <body>
-        <div class="card" style="height:60px; width: 360px;">
+        <div class="card" style="width: 360px;">
             <div class="card-body">
                 <div class="row">
                     <div class="col-4 text-center" >
@@ -58,6 +57,14 @@
                     </div>
                     <div class="col-4 text-center" style="font-size: 20px;">
                         <span th:text="${downvoteSum}" ></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="progress-stacked" role="progressbar">
+                            <div class="progress-bar bg-success" th:if="${upvoteSum}!=0" th:style="'width: ' + ${upvoteSum * 100 / (upvoteSum + downvoteSum)} + '%'" ></div>
+                            <div class="progress-bar bg-danger" th:if="${downvoteSum}!=0" th:style="'width: ' + ${100 - (upvoteSum * 100 / (upvoteSum + downvoteSum))} + '%'" ></div>
+                        </div>
                     </div>
                 </div>
             </div>         
