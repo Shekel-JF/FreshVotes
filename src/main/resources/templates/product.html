@@ -16,16 +16,28 @@
                 <div class="col-3">  
                     
                 </div>
-                <div class="col-6 text-center md-4">
-                    <legend style="margin-bottom: 20px; font-size:40px">Product</legend>
+                <div class="col-6 text-center">
+                    <div th:if="${product.name==null}">
+                        <legend style="margin-bottom: 40px; font-size:40px">New Product</legend>
+                    </div>
+                    <div th:unless="${product.name==null}">
+                        <legend th:text="${product.name}" style="margin-bottom: 40px; font-size:40px"></legend>
+                    </div>
+                    
 
                     <form action="" method="post">
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                         <input type="hidden" th:field="${product.id}"/>
                         <input type="hidden" th:field="${product.user}"/>
-                        <div class="input-group mb-5">
-                            <div class="col-12 col-sm-12 col-md-12 mx-auto">                    
+                        <div class="input-group mb-3">
+                            <div class="col-12">                    
                                 <input type="text" th:field="${product.name}" class="form-control" placeholder="Product name"/>
+                            </div>     
+                        </div>
+
+                        <div class="input-group mb-5">
+                            <div class="col-12">                    
+                                <textarea rows="4" th:field="${product.description}" class="form-control" placeholder="description"></textarea>
                             </div>     
                         </div>
                         

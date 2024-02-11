@@ -21,6 +21,7 @@ public class Product
     private User user;
     private List<Feature> features= new ArrayList<>();
     private Boolean published;
+    private String description;
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Long getId()
@@ -70,5 +71,15 @@ public class Product
     public void setPublished(Boolean published)
     {
         this.published = published;
+    }
+
+    @Column(length = 128)
+    public String getDescription()
+    {
+        return this.description;
+    }
+    public void setDescription(String description)
+    {
+        this.description = description;
     }
 }

@@ -75,10 +75,11 @@
             </div>
             <div th:each="product : ${userProducts}" class="col-lg-4 col-sm-6 col-6 mb-3">
                 <div class="card">
-                    <div class="card-body" style="height:100px;">
+                    <div class="card-body" style="height:180px;">
                         <a th:href="@{/p/{productId}(productId=${product.id})}" class="stretched-link"></a>
                         <h5 class="card-title clamp-text" th:text="${product.name}"></h5>
                         <h6 class="card-subtitle mb-2 text-muted" style="font-size:14px" th:text="${product.published ? 'public' : 'private'}"></h6>
+                        <p class="card-text" th:text="${product.description}" style="font-size:18px;"></p>
                         <form th:action="@{/products/delete}" method="post">
                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                             <input type="hidden" th:name="productId" th:value="${product.id}"/>
