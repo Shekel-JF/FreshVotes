@@ -49,7 +49,7 @@ public class ProductController
     public String deleteProduct(@AuthenticationPrincipal User user, @RequestParam Long productId)
     {
         productService.deleteProduct(user, productId);
-        return "redirect:/dashboard";
+        return "redirect:/discover";
     }
     
     @GetMapping("p/{productId}")

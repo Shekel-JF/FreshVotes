@@ -2,7 +2,7 @@
 <html xmlns:th="http://thymeLeaf.org" data-bs-theme="dark">
     <head>
         <div th:insert="~{fragments/header :: headerElement}"></div>
-        <title>FreshVotes products</title>
+        <title th:text="${product.name}"></title>
     </head>
     <body>
         <div class="container" th:if="${product != null}">

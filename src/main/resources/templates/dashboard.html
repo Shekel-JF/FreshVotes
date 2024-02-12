@@ -23,51 +23,6 @@
             </div>
         </div>
         
-        <div th:if="${not #lists.isEmpty(popularProducts)}">
-            <div class="row">
-                <legend style="font-size:32px">Popular Products</legend>                
-            </div>
-            <div id="popularProductsCarousel" class="carousel slide mb-3">
-                <div class="carousel-inner">
-                    <div th:each="productSlide, innerStatus : ${popularProducts}" th:class="${innerStatus.index == 0} ? 'carousel-item active' : 'carousel-item'">
-                        <div class="row">
-                            <div th:each="product : ${productSlide}" class="col-6 mx-auto">
-                                <div th:insert="~{fragments/productCard :: product-card}"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div th:if="${popularProducts.size() > 1}" class="carousel-indicators">
-                    <button 
-                        th:each="productSlide, slideIndex : ${popularProducts}" type="button" data-bs-target="#popularProductsCarousel" th:data-bs-slide-to="${slideIndex.index}" 
-                        th:class="${slideIndex.index == 0} ? 'active' : ''" th:aria-label="'Slide ' + ${slideIndex.index + 1}" style="background-color: grey; height: 6px;">
-                    </button>
-                </div>   
-            </div>
-        </div>
-
-        <div th:if="${not #lists.isEmpty(newProducts)}">
-            <div class="row">
-                <legend style="font-size:32px; margin-top: 64px;">New Products</legend>                
-            </div>
-            <div id="newProductsCarousel" class="carousel slide mb-3">
-                <div class="carousel-inner">
-                    <div th:each="productSlide, innerStatus : ${newProducts}" th:class="${innerStatus.index == 0} ? 'carousel-item active' : 'carousel-item'">
-                        <div class="row">
-                            <div th:each="product : ${productSlide}" class="col-6 mx-auto">
-                                <div th:insert="~{fragments/productCard :: product-card}"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div th:if="${newProducts.size() > 1}" class="carousel-indicators">
-                    <button 
-                        th:each="productSlide, slideIndex : ${newProducts}" type="button" data-bs-target="#newProductsCarousel" th:data-bs-slide-to="${slideIndex.index}" 
-                        th:class="${slideIndex.index == 0} ? 'active' : ''" th:aria-label="'Slide ' + ${slideIndex.index + 1}" style="background-color: grey; height: 6px;">
-                    </button>
-                </div>
-            </div>
-        </div>
         
         <div th:if="${not #lists.isEmpty(userProducts)}" class="row">
             <div>

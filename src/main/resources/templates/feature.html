@@ -27,7 +27,7 @@
                 $('#setStatus').submit();
             }
         </script>
-        <title>FreshVotes features</title>
+        <title th:text="${feature.title}"></title>
     </head>
     <body>
         <div th:if="${feature}!=null" class="container">

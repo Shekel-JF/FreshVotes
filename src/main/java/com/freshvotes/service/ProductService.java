@@ -143,6 +143,11 @@ public class ProductService
         return productRepo.findNew();
     }
 
+    public List<Product> findAll()
+    {
+        return productRepo.findAll();
+    }    
+
     public void deleteById(Long ProductId)
     {
         productRepo.deleteById(ProductId);

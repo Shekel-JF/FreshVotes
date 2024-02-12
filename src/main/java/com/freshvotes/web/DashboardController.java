@@ -21,13 +21,21 @@ public class DashboardController
         return "index";
     }
 
+    @GetMapping("/discover")
+    public String discover(@AuthenticationPrincipal User user, ModelMap model)
+    {
+        model.put("user", user);
+        productService.putGroupedLists(model, productService.findByUpvotes(), "popularProducts");  
+        productService.putGroupedLists(model, productService.findNew(), "newProducts");
+
+        return "discover";
+    }
+
     @GetMapping("/dashboard")
     public String dashboard(@AuthenticationPrincipal User user, ModelMap model)
     {
         model.put("userProducts", productService.findByUser(user));
         model.put("user", user);
-        productService.putGroupedLists(model, productService.findByUpvotes(), "popularProducts");  
-        productService.putGroupedLists(model, productService.findNew(), "newProducts");
 
         return "dashboard";
     }
