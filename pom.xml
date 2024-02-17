@@ -6,23 +6,24 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>com.freshvotes</groupId>
 	<artifactId>freshvotes</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>freshvotes</name>
-	<description>Demo project for Spring Boot</description>
+	<description>FreshVotes application</description>
 	<properties>
 		<java.version>19</java.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-	<dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
@@ -38,7 +39,6 @@
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -71,8 +71,7 @@
     		<version>4.10</version>
     		<scope>test</scope>
 		</dependency>
-
- </dependencies>
+ 	</dependencies>
 
 	<build>
 		<plugins>
@@ -82,5 +81,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
