@@ -3,6 +3,16 @@
 <head>
     <div th:insert="~{fragments/header :: headerElement}"></div>
     <title>FreshVotes Products</title>
+    <script type="text/javascript">
+        function iframeLoaded() {
+            var iFrameID = document.getElementById('search');
+            if(iFrameID)
+            {
+                  iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + 64 +"px";
+            }
+            var searchContent = window.frames['search'].document.getElementById('input');         
+        }
+      </script>
 </head>
 <body>
     <div class="container">
@@ -34,7 +44,7 @@
 
         <div th:if="${not #lists.isEmpty(newProducts)}">
             <div class="row">
-                <legend style="font-size:32px; margin-top: 64px;">New Products</legend>                
+                <legend style="font-size:32px; margin-top: 64px;">New Products</legend>
             </div>
             <div id="newProductsCarousel" class="carousel slide mb-3">
                 <div class="carousel-inner">
@@ -53,6 +63,14 @@
                     </button>
                 </div>
             </div>
+        </div>
+        <div>
+            <iframe th:src="@{/discover/search/{typedProductName}(typedProductName=${typedProductName})}"
+                id="search" 
+                name="search" 
+                style="visibility: hidden; margin-top: 2em; width: 100%;"
+                onload="iframeLoaded(), this.style.visibility = 'visible';">        
+            </iframe>
         </div>
     </div>
 </body>

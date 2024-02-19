@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.freshvotes.domain.Product;
 import com.freshvotes.domain.User;
@@ -17,6 +18,12 @@ public interface ProductRepository extends JpaRepository<Product, Long>
 
     @Query("Select p FROM Product p WHERE p.published = true ORDER BY p.id DESC LIMIT 15")
     List<Product> findNew();
+
+    @Query("Select p FROM Product p WHERE p.name LIKE %:typedProductName% AND p.published = true")
+    List<Product> findByKeyWord(@Param("typedProductName") String typedProductName);
+
+    @Query("Select p FROM Product p WHERE p.published = true")
+    List<Product> findAllPublic();
 
     @Query("SELECT p FROM Product p " +
     "LEFT JOIN (SELECT f.product.id AS productId, COUNT(v) as total_upvotes " +

@@ -146,7 +146,17 @@ public class ProductService
     public List<Product> findAll()
     {
         return productRepo.findAll();
-    }    
+    } 
+
+    public List<Product> findAllPublic()
+    {
+        return productRepo.findAllPublic();
+    }  
+    
+    public List<Product> findByKeyWord(String typedProductName)
+    {
+        return productRepo.findByKeyWord(typedProductName);
+    }  
 
     public void deleteById(Long ProductId)
     {
