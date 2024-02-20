@@ -58,4 +58,22 @@ public class FeatureController
         featureService.deleteFeature(user, productId, featureId);
         return "redirect:/p/" + productId;   
     }
+
+    @GetMapping("p/{productId}/search/")
+    public String defaultFeatureSearch(@AuthenticationPrincipal User user, ModelMap model, @PathVariable Long productId)
+    {
+        model.put("user", user);
+        model.put("searchedFeatures", featureService.findByProductId(productId));
+
+        return "featureSearch";
+    }
+
+    @GetMapping("p/{productId}/search/{typedFeatureTitle}")
+    public String featureSearch(@AuthenticationPrincipal User user, ModelMap model, @PathVariable Long productId, @PathVariable String typedFeatureTitle)
+    {
+        model.put("user", user);
+        model.put("searchedFeatures", featureService.findByKeyWord(typedFeatureTitle, productId));
+
+        return "featureSearch";
+    }
 }

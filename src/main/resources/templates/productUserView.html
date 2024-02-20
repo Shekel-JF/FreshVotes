@@ -8,13 +8,8 @@
         <div th:if="${product}!=null" class="container">
             <div th:insert="~{fragments/header :: header}"></div>
             <div class="row">
-                <div style="height: 50px;">
-                  
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-12">
-                    <legend class="text-center" th:text="${product.name}" style="margin-bottom: 64px; margin-top: 64px; font-size:40px; word-wrap: break-word;"></legend>
+                    <legend class="text-center" th:text="${product.name}" style="margin-bottom: 64px; margin-top: 128px; font-size:40px; word-wrap: break-word;"></legend>
                     
                     <div class="mb-5">
                         <form th:action="@{/products/{productId}/features(productId=${product.id})}" method="post">
@@ -26,8 +21,7 @@
                             </div>
                         </form>
                     </div>
-
-                    
+                  
                     <div th:if="${not #lists.isEmpty(popularFeatures)}" style="margin-bottom: 88px;">
                         <div class="row">
                             <legend style="font-size:32px">Popular Features</legend>                
@@ -51,8 +45,6 @@
                         </div>
                     </div>
                     
-
-
                     <div class="mb-8">
                         <div th:if="${not #lists.isEmpty(newFeatures)}" style="margin-bottom: 88px;">
                             <div class="row">
@@ -78,32 +70,13 @@
                         </div>
                     </div>
                         
-                    <div class="text-center" style="font-size:24px; margin-top:50px" th:if="${product.features.isEmpty == false}">
-                        <legend style="font-size:32px">All Features</legend>  
-                    </div>                            
-                    
-                    <div th:each="feature: ${product.features}">
-                        <div class="row mb-2">
-                            <div class="col-1"></div>
-                            <div class="col-10">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <a th:href="@{/products/{productId}/features/{featureId}(productId=${product.id},featureId=${feature.id})}" class="stretched-link"></a>
-                                        <h5 class="card-title limited-title" th:text="${feature.title}" style="font-size:24px; font-weight: bolder;"></h5>
-                                        <h6 class="card-subtitle mb-2 text-muted" style="font-size:14px; margin-top: 6px;" th:text="'author: ' +${feature.user.name}"></h6>
-                                        <p class="card-text clamp-text" th:text="${feature.description}" style="font-size:18px;"></p>
-                                        <div th:if="${feature.user.id} == ${user.id}">
-                                            <form th:action="@{/p/{productId}/{featureId}/delete(productId=${product.id},featureId=${feature.id})}" method="post">
-                                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                                                <input type="hidden" th:name="productId" th:value="${product.id}"/>
-                                                <input type="hidden" th:name="productId" th:value="${product.name}"/>
-                                                <button type="submit" class="btn-close position-absolute top-0 end-0 me-2 mt-2" style="--bs-btn-padding-y: .4rem; --bs-btn-padding-x: 0.8rem; --bs-btn-font-size: 0.8rem;"></button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                 
+                    <div class="text-center" style="font-size:24px; margin-top:64px;" th:if="${product.features.isEmpty == false}">
+                        <iframe th:src="@{/p/{productId}/search/{typedFeatureTitle}(productId=${product.id}, typedFeatureTitle=${typedFeatureTitle})}"
+                            id="search" 
+                            name="search" 
+                            style="visibility: hidden; margin-top: 2em; width: 100%;"
+                            onload="iframeLoaded(), this.style.visibility = 'visible';">        
+                        </iframe>
                     </div>
                 </div>    
             </div>

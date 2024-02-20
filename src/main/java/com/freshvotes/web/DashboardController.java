@@ -33,8 +33,9 @@ public class DashboardController
     }
   
     @GetMapping("/discover/search/")
-    public String productSearch(@AuthenticationPrincipal User user, ModelMap model)
+    public String defaultProductSearch(@AuthenticationPrincipal User user, ModelMap model)
     {
+        model.put("user", user);
         model.put("searchedProducts", productService.findAllPublic());
 
         return "productSearch";
@@ -43,6 +44,7 @@ public class DashboardController
     @GetMapping("/discover/search/{typedProductName}")
     public String productSearch(@AuthenticationPrincipal User user, ModelMap model, @PathVariable String typedProductName)
     {
+        model.put("user", user);
         model.put("searchedProducts", productService.findByKeyWord(typedProductName));
         
         return "productSearch";

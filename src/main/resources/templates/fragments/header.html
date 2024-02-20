@@ -7,7 +7,48 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            function iframeLoaded()
+            {
+                var iFrameID = document.getElementById('search');
+                if(iFrameID)
+                {
+                      iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + 256 +"px";
+                }
+                var searchContent = window.frames['search'].document.getElementById('input');         
+            }
+            function updateActionAndSubmit(event)
+            {
+                event.preventDefault();
+                const typedFeatureTitle = document.getElementById("input").value;
+                const form = document.getElementById("searchForm");
+                const parentProductId = getParentProductId();
+                form.action = "/p/" + parentProductId + "/search/" + encodeURIComponent(typedFeatureTitle);
+                form.submit();
+            }
+    
+            function getParentProductId()
+            {
+                const parentPathSegments = parent.location.pathname.split('/');
+                const parentProductIdIndex = parentPathSegments.indexOf('p');
+                return parentPathSegments[parentProductIdIndex + 1];
+            }
         
+            document.addEventListener('DOMContentLoaded', () =>
+            {
+                const iframeLinks = document.querySelectorAll('a[target="_parent"]');
+                iframeLinks.forEach(link =>
+                {
+                    link.addEventListener('click', (event) =>
+                    {
+                        event.preventDefault();
+                        parent.location.href = link.getAttribute('href');
+                    });
+                });
+    
+                document.getElementById('searchForm').addEventListener('submit', updateActionAndSubmit);
+            });
+        </script>
         <style>
             body
             {

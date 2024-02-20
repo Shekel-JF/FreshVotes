@@ -74,7 +74,6 @@ public class FeatureService
             response.sendError(HttpStatus.NOT_FOUND.value(), "Feature with id = " + featureId + " was not found.");
         }
         model.put("user", user);      
-        // TODO what if no featureid present
     }
 
     public void updateFeature(User user, Feature feature, Long productId, Long featureId)
@@ -124,6 +123,16 @@ public class FeatureService
     public List<Feature> findNew(Long productId)
     {
         return featureRepo.findNew(productId);
+    }
+
+    public List<Feature> findByProductId(Long productId)
+    {
+        return featureRepo.findByProductId(productId);
+    }
+
+    public List<Feature> findByKeyWord(String typedFeatureTitle, Long productId)
+    {
+        return featureRepo.findByKeyWord(typedFeatureTitle, productId);
     }
 
     public void deleteById(Long featureId)

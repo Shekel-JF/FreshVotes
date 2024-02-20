@@ -3,16 +3,6 @@
 <head>
     <div th:insert="~{fragments/header :: headerElement}"></div>
     <title>FreshVotes Products</title>
-    <script type="text/javascript">
-        function iframeLoaded() {
-            var iFrameID = document.getElementById('search');
-            if(iFrameID)
-            {
-                  iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + 64 +"px";
-            }
-            var searchContent = window.frames['search'].document.getElementById('input');         
-        }
-      </script>
 </head>
 <body>
     <div class="container">
@@ -28,7 +18,7 @@
                     <div th:each="productSlide, innerStatus : ${popularProducts}" th:class="${innerStatus.index == 0} ? 'carousel-item active' : 'carousel-item'">
                         <div class="row">
                             <div th:each="product : ${productSlide}" class="col-6 mx-auto">
-                                <div th:insert="~{fragments/productCard :: product-card}"></div>
+                                <div th:insert="~{fragments/productCard :: product-card(isDashboard=false)}"></div>
                             </div>
                         </div>
                     </div>
@@ -51,7 +41,7 @@
                     <div th:each="productSlide, innerStatus : ${newProducts}" th:class="${innerStatus.index == 0} ? 'carousel-item active' : 'carousel-item'">
                         <div class="row">
                             <div th:each="product : ${productSlide}" class="col-6 mx-auto">
-                                <div th:insert="~{fragments/productCard :: product-card}"></div>
+                                <div th:insert="~{fragments/productCard :: product-card(isDashboard=false)}"></div>
                             </div>
                         </div>
                     </div>
@@ -64,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div style="margin-top: 64px;">
             <iframe th:src="@{/discover/search/{typedProductName}(typedProductName=${typedProductName})}"
                 id="search" 
                 name="search" 
