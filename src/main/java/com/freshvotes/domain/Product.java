@@ -73,7 +73,7 @@ public class Product
         this.published = published;
     }
 
-    @Column(length = 128)
+    @Column(length = 256)
     public String getDescription()
     {
         return this.description;

@@ -25,13 +25,13 @@
                         <input type="hidden" th:field="${product.user}"/>
                         <div class="input-group mb-3">
                             <div class="col-12">                    
-                                <input type="text" th:field="${product.name}" class="form-control" placeholder="Product name"/>
+                                <input type="text" th:field="${product.name}" class="form-control" placeholder="Product name" maxlength="64"/>
                             </div>     
                         </div>
 
                         <div class="input-group mb-5">
                             <div class="col-12">                    
-                                <textarea rows="4" th:field="${product.description}" class="form-control" placeholder="description"></textarea>
+                                <textarea rows="4" th:field="${product.description}" class="form-control" placeholder="description" maxlength="256"></textarea>
                             </div>     
                         </div>
                         

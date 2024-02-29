@@ -2,7 +2,7 @@
     <div class="card" style="height:220px">
         <div class="card-body">
             <a th:href="@{/products/{productId}/features/{featureId}(productId=${feature.product.id},featureId=${feature.id})}" target="_parent" class="stretched-link"></a>
-            <h5 class="card-title clamp-text limited-title" th:text="${feature.title}" style="font-size:24px; font-weight: bolder;"></h5>
+            <h5 class="card-title clamp-text limited-title" th:text="${feature.title}" style="font-size:24px;"></h5>
             <h6 class="card-subtitle mb-2 text-muted" style="font-size:14px; margin-top: 6px;" th:text="'author: ' +${feature.user.name}"></h6>
             <p class="card-text clamp-text" th:text="${feature.description}" style="font-size:18px;"></p>
             <form th:action="@{/p/{productId}/{featureId}/delete(productId=${feature.product.id},featureId=${feature.id})}" target="_parent" method="post" th:if="${feature.user.id} == ${user.id}">

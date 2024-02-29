@@ -33,7 +33,7 @@ public class Comment
     private Comment comment;
     private Date createDate;
 
-    @Column(length=5000)
+    @Column(length=2048)
     public String getText()
     {
         return this.text;
