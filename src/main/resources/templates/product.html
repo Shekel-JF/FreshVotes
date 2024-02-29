@@ -8,23 +8,17 @@
         <div class="container" th:if="${product != null}">
             <div th:insert="~{fragments/header :: header}"></div>
             <div class="row">
-                <div style="height: 50px;">
-                  
-                </div>
-              </div>
-            <div class="row">
                 <div class="col-3">  
                     
                 </div>
-                <div class="col-6 text-center">
+                <div class="col-6 text-center" style="margin-top:50px;">
                     <div th:if="${product.name==null}">
                         <legend style="margin-bottom: 40px; font-size:40px">New Product</legend>
                     </div>
-                    <div th:unless="${product.name==null}">
-                        <legend th:text="${product.name}" style="margin-bottom: 40px; font-size:40px"></legend>
+                    <div th:unless="${product.name==null}" class="clamp-text">
+                        <legend th:text="${product.name}" style="margin-bottom: 40px; font-size:40px; word-wrap: break-word;"></legend>
                     </div>
                     
-
                     <form action="" method="post">
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                         <input type="hidden" th:field="${product.id}"/>
@@ -49,8 +43,7 @@
                             <div class="col-6 mb-3 text-end">
                                 <button class="btn btn-outline-info" style="--bs-btn-padding-y: .6rem; --bs-btn-padding-x: 1.2rem; --bs-btn-font-size: 1.0rem;">Save product</button>
                             </div>
-                        </div>
-                        
+                        </div>                 
                     </form>
                 </div>
             </div>

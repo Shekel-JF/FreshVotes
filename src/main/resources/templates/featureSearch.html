@@ -2,6 +2,27 @@
 <html xmlns:th="http://thymeLeaf.org" data-bs-theme="dark">
 <head>
     <div th:insert="~{fragments/header :: headerElement}"></div>
+    <script>
+        function getParentProductId()
+        {
+            const parentPathSegments = parent.location.pathname.split('/');
+            const parentProductIdIndex = parentPathSegments.indexOf('p');
+            return parentPathSegments[parentProductIdIndex + 1];
+        }
+        function updateActionAndSubmit(event)
+        {
+            event.preventDefault();
+            const typedFeatureTitle = document.getElementById("input").value;
+            const form = document.getElementById("searchForm");
+            const parentProductId = getParentProductId();
+            form.action = "/p/" + parentProductId + "/search/" + encodeURIComponent(typedFeatureTitle);
+            form.submit();
+        }
+        document.addEventListener('DOMContentLoaded', () =>
+        {   
+            document.getElementById('searchForm').addEventListener('submit', updateActionAndSubmit);
+        });
+    </script>
 </head>
 <body>
     <div class="container">     
@@ -9,7 +30,7 @@
             <div class="col-10 mx-auto">
                 <form id="searchForm" th:action="@{/p/{productId}/search/}" method="get">
                     <div class="input-group text-center">
-                        <input type="text" class="form-control" placeholder="what are you looking for today?" th:value="${typedFeatureTitle}" id="input"/>
+                        <input type="text" class="form-control" placeholder="what feature are you looking for today?" th:value="${typedFeatureTitle}" id="input"/>
                         <button type="submit" class="btn btn-outline" style="border-color: rgb(204, 204, 204); --bs-btn-padding-y: .6rem; --bs-btn-padding-x: 1.2rem; --bs-btn-font-size: 1.0rem;">search</button>
                     </div>
                 </form>
@@ -22,7 +43,10 @@
                     <div th:each="feature : ${searchedFeatures}" class="col-lg-4 col-sm-6 col-6 mb-3">
                         <div th:insert="~{fragments/featureCard :: feature-card}"></div>
                     </div>   
-                </div>      
+                </div>
+                <div th:unless="${not #lists.isEmpty(searchedFeatures)}" class="row text-center">
+                    <legend style="font-size:32px; margin-top: 80px;">Matching feature does not exist!</legend>  
+                </div>    
             </div>
         </div>
     </div>

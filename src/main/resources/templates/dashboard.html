@@ -2,20 +2,18 @@
 <html xmlns:th="http://thymeLeaf.org" data-bs-theme="dark">
 <head>
     <div th:insert="~{fragments/header :: headerElement}"></div>
-    <title>FreshVotes Dashboard</title>
+    <title th:text="${user.name}">FreshVotes Dashboard</title>
 </head>
 <body>
     <div class="container">
         <div th:insert="~{fragments/header :: header}"></div>
-        <div class="row" style="height: 50px;"></div>
-
         <div class="row">
-            <div class="col-12 text-center">
+            <div class="col-12 text-center" style="margin-top:80px;">
+                <span th:text="${user.name}  + '\'s' + ' profile'" style="font-size:40px"></span>
                 <form action="/products" method="post">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                     <fieldset>
-                        <legend style="margin-bottom: 60px; margin-top: 60px; font-size:40px">FreshVotes Dashboard</legend>
-                        <div class="col-12 text-center mb-5">
+                        <div class="col-12 text-center mb-5" style="margin-top:60px;">
                             <button class="btn btn-outline-info" id="createProduct" style="--bs-btn-padding-y: .6rem; --bs-btn-padding-x: 1.2rem; --bs-btn-font-size: 1.0rem;">create a product</button>
                         </div>
                     </fieldset>

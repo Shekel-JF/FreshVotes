@@ -2,6 +2,21 @@
 <html xmlns:th="http://thymeLeaf.org" data-bs-theme="dark">
 <head>
     <div th:insert="~{fragments/header :: headerElement}"></div>
+    <script>
+        function updateActionAndSubmit(event)
+        {
+            event.preventDefault();
+            const typedProductName = document.getElementById("input").value;
+            const form = document.getElementById("searchForm");
+            form.action = "/discover/search/" + encodeURIComponent(typedProductName);
+            form.submit();
+        }
+
+        document.addEventListener('DOMContentLoaded', () =>
+        {
+            document.getElementById('searchForm').addEventListener('submit', updateActionAndSubmit);
+        });
+    </script>
 </head>
 <body>
     <div class="container">     
@@ -9,7 +24,7 @@
             <div class="col-10 mx-auto">
                 <form id="searchForm" th:action="@{/discover/search/}" method="get">
                     <div class="input-group text-center">
-                        <input type="text" class="form-control" placeholder="what are you looking for today?" th:value="${typedProductName}" id="input"/>
+                        <input type="text" class="form-control" placeholder="what product are you looking for today?" th:value="${typedProductName}" id="input"/>
                         <button type="submit" class="btn btn-outline" style="border-color: rgb(204, 204, 204); --bs-btn-padding-y: .6rem; --bs-btn-padding-x: 1.2rem; --bs-btn-font-size: 1.0rem;">search</button>
                     </div>
                 </form>

@@ -17,48 +17,11 @@
                 }
                 var searchContent = window.frames['search'].document.getElementById('input');         
             }
-            function updateActionAndSubmit(event)
-            {
-                event.preventDefault();
-                const typedFeatureTitle = document.getElementById("input").value;
-                const form = document.getElementById("searchForm");
-                const parentProductId = getParentProductId();
-                form.action = "/p/" + parentProductId + "/search/" + encodeURIComponent(typedFeatureTitle);
-                form.submit();
-            }
-    
-            function getParentProductId()
-            {
-                const parentPathSegments = parent.location.pathname.split('/');
-                const parentProductIdIndex = parentPathSegments.indexOf('p');
-                return parentPathSegments[parentProductIdIndex + 1];
-            }
-        
-            document.addEventListener('DOMContentLoaded', () =>
-            {
-                const iframeLinks = document.querySelectorAll('a[target="_parent"]');
-                iframeLinks.forEach(link =>
-                {
-                    link.addEventListener('click', (event) =>
-                    {
-                        event.preventDefault();
-                        parent.location.href = link.getAttribute('href');
-                    });
-                });
-    
-                document.getElementById('searchForm').addEventListener('submit', updateActionAndSubmit);
-            });
         </script>
         <style>
             body
             {
                 font-family: 'Courier New', monospace;
-            }
-            .card
-            {
-                display: flex;
-                flex-direction: column;
-                height: 100%;
             }
             .card-title
             {

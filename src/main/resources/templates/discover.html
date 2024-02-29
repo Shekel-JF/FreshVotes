@@ -2,12 +2,14 @@
 <html xmlns:th="http://thymeLeaf.org" data-bs-theme="dark">
 <head>
     <div th:insert="~{fragments/header :: headerElement}"></div>
-    <title>FreshVotes Products</title>
+    <title>FreshVotes Discover</title>
 </head>
 <body>
     <div class="container">
         <div th:insert="~{fragments/header :: header}"></div>
-        <div class="row" style="height: 150px;"></div>
+        <div class="row text-center" style="margin-top: 90px; margin-bottom: 30px;">
+            <legend style="font-size:40px">Discover</legend> 
+        </div>
         
         <div th:if="${not #lists.isEmpty(popularProducts)}">
             <div class="row">

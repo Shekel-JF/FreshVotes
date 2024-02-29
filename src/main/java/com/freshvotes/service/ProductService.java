@@ -88,8 +88,8 @@ public class ProductService
                 {
                     model.put("product", product);
                     model.put("user", user);
-                    putGroupedLists(model, featureRepo.findByUpvotes(productId), "popularFeatures");
-                    putGroupedLists(model, featureRepo.findNew(productId), "newFeatures");               
+                    model.put("popularFeatures", featureRepo.findByUpvotes(productId));
+                    model.put("newFeatures", featureRepo.findNew(productId));               
                 }        
             }
             else
