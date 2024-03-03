@@ -5,7 +5,7 @@
             <h5 class="card-title clamp-text limited-title" th:text="${product.name}"></h5>
             <h6 class="card-subtitle mb-2 text-muted" style="font-size:14px; margin-top: 6px;" th:text="${isDashboard} ? (${product.published} ? 'public' : 'private') : 'owner: ' + ${product.user.name}"></h6>
             <p class="card-text clamp-text" th:text="${product.description}" style="font-size:18px;"></p>
-            <form th:action="@{/products/delete}" method="post" target="_parent" th:if="${product.user.id == user.id}">
+            <form th:action="@{${isDashboard} ? '/dashboard/delete' : '/discover/delete'}" method="post" target="_parent" th:if="${product.user.id == user.id}">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 <input type="hidden" th:name="productId" th:value="${product.id}"/>
                 <button type="submit" class="btn-close position-absolute top-0 end-0 me-2 mt-2" style="--bs-btn-padding-y: .4rem; --bs-btn-padding-x: 0.8rem; --bs-btn-font-size: 0.8rem;"></button>

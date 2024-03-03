@@ -7,13 +7,11 @@
 <body>
     <div class="container">
         <div th:insert="~{fragments/header :: header}"></div>
-        <div class="row text-center" style="margin-top: 90px; margin-bottom: 30px;">
-            <legend style="font-size:40px">Discover</legend> 
-        </div>
+        <div style="margin-top: 64px;"></div>
         
         <div th:if="${not #lists.isEmpty(popularProducts)}">
             <div class="row">
-                <legend style="font-size:32px">Popular Products</legend>                
+                <legend style="font-size:26px">Popular Products</legend>                
             </div>
             <div id="popularProductsCarousel" class="carousel slide mb-3">
                 <div class="carousel-inner">
@@ -36,7 +34,7 @@
 
         <div th:if="${not #lists.isEmpty(newProducts)}">
             <div class="row">
-                <legend style="font-size:32px; margin-top: 64px;">New Products</legend>
+                <legend style="font-size:26px; margin-top: 64px;">New Products</legend>
             </div>
             <div id="newProductsCarousel" class="carousel slide mb-3">
                 <div class="carousel-inner">

@@ -35,18 +35,20 @@ public class WebSecurityConfig
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
         return
-                http.headers(headers -> headers.disable())
-                        .authorizeHttpRequests(requests -> requests
-                                .requestMatchers("/").permitAll()
-                                .requestMatchers("/register").permitAll()
-                                .requestMatchers("/icons/**").permitAll() // for future generations
-                                .anyRequest().hasRole("USER"))
-                        .formLogin(login -> login
-                                .loginPage("/login")
-                                .defaultSuccessUrl("/dashboard")
-                                .permitAll())
-                        .logout(logout -> logout
-                                .logoutUrl("/logout").permitAll()).build();
+            http.headers(headers -> headers.disable())
+                    .authorizeHttpRequests(requests -> requests
+                            .requestMatchers("/").permitAll()
+                            .requestMatchers("/register").permitAll()
+                            .requestMatchers("/icons/**").permitAll()
+                            .requestMatchers("/css/**").permitAll()
+                            .requestMatchers("/js/**").permitAll()
+                            .anyRequest().hasRole("USER"))
+                    .formLogin(login -> login
+                            .loginPage("/login")
+                            .defaultSuccessUrl("/discover")
+                            .permitAll())
+                    .logout(logout -> logout
+                            .logoutUrl("/logout").permitAll()).build();
     }
 
         @Bean

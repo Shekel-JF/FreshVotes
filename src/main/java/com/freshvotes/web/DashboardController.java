@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.freshvotes.domain.User;
 import com.freshvotes.service.ProductService;
@@ -57,5 +59,19 @@ public class DashboardController
         model.put("user", user);
 
         return "dashboard";
+    }
+
+     @PostMapping("/dashboard/delete")
+    public String deleteProductOnDashboard(@AuthenticationPrincipal User user, @RequestParam Long productId)
+    {
+        productService.deleteProduct(user, productId);
+        return "redirect:/dashboard";
+    }
+
+    @PostMapping("/discover/delete")
+    public String deleteProductOnDiscover(@AuthenticationPrincipal User user, @RequestParam Long productId)
+    {
+        productService.deleteProduct(user, productId);
+        return "redirect:/discover";
     }
 }

@@ -15,7 +15,7 @@
                             <a th:href="@{/p/{productId}(productId=${product.id})}"></a>
                             <h5 class="card-title" style="font-size:40px;" th:text="${product.name}"></h5>
                             <h6 class="card-subtitle mb-2 text-muted" style="font-size:18px; margin-top: 6px;" th:text="${isDashboard} ? (${product.published} ? 'public' : 'private') : 'owner: ' + ${product.user.name}"></h6>
-                            <p class="card-text" th:text="${product.description}" style="font-size:22px;"></p>
+                            <p class="card-text" th:text="${product.description}" style="font-size:22px; margin-top: 20px;"></p>
                         </div>
                     </div>
                 </div>

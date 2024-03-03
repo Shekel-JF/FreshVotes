@@ -44,13 +44,6 @@ public class ProductController
         productService.saveProduct(user, productId, product);
         return "redirect:/products/" + productId;
     }
-
-    @PostMapping("/products/delete")
-    public String deleteProduct(@AuthenticationPrincipal User user, @RequestParam Long productId)
-    {
-        productService.deleteProduct(user, productId);
-        return "redirect:/discover";
-    }
     
     @GetMapping("p/{productId}")
     public String getProductUserView(@AuthenticationPrincipal User user, @PathVariable Long productId, ModelMap model, HttpServletResponse response) throws IOException
